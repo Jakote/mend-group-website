@@ -21,12 +21,12 @@
   <meta name="twitter:description" content="Enterprise IT solutions for businesses in Lesotho and South Africa.">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='url(%23g)'/><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%233B82F6'/><stop offset='100%25' stop-color='%238B5CF6'/></linearGradient></defs><text x='50' y='68' font-size='55' font-weight='bold' text-anchor='middle' fill='white' font-family='monospace'>M</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='url(%23g)'/><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%2300685f'/><stop offset='100%25' stop-color='%23008378'/></linearGradient></defs><text x='50' y='68' font-size='55' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'>M</text></svg>">
 
-  <!-- Fonts -->
+  <!-- Fonts — Precision Architect design system -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -88,6 +88,8 @@
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#portfolio">Work</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#careers">Careers</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
       </ul>
@@ -256,53 +258,63 @@
     </div>
   </section>
 
-  <!-- Portfolio / Case Studies -->
+  <!-- Portfolio / Live Projects -->
   <section class="portfolio" id="portfolio">
     <div class="container">
       <div class="section-label reveal">Our Work</div>
-      <div class="section-title reveal">Projects & case studies</div>
-      <div class="section-desc reveal">A selection of recent projects showcasing our capabilities across different industries.</div>
+      <div class="section-title reveal">Live projects you can try</div>
+      <div class="section-desc reveal">Flagship projects built in-house, deployed to production, and open for you to explore. Every link below is a running application.</div>
       <div class="portfolio-grid">
 
-        <div class="portfolio-card reveal reveal-delay-1">
-          <div class="portfolio-image" style="background: linear-gradient(135deg, #1e3a5f, #0f2027);">
+        <a class="portfolio-card reveal reveal-delay-1" href="https://web-production-0585b.up.railway.app" target="_blank" rel="noopener">
+          <div class="portfolio-image">
+            <div class="portfolio-badge"><span class="portfolio-badge-dot"></span>Live</div>
             <div class="portfolio-image-content">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M8 11h4v4"/><path d="M12 11h4"/></svg>
             </div>
           </div>
           <div class="portfolio-info">
-            <div class="portfolio-tags"><span>Enterprise Software</span><span>Cloud</span></div>
-            <h3>Logistics & Fleet Management Platform</h3>
-            <p>Enterprise platform for managing fleet operations, vehicle tracking, and compliance reporting for a transport company across Southern Africa.</p>
+            <div class="portfolio-tags"><span>Go + Echo</span><span>Next.js 16</span><span>Postgres</span><span>JWT</span></div>
+            <h3>Medical Wallet &mdash; patient-owned health records</h3>
+            <p>A patient-first digital vault for vaccinations, prescriptions, allergies and lab results. Patients share with providers via short-lived access tokens.</p>
+            <div class="portfolio-cta">Try the live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div>
           </div>
-        </div>
+        </a>
 
-        <div class="portfolio-card reveal reveal-delay-2">
-          <div class="portfolio-image" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+        <a class="portfolio-card reveal reveal-delay-2" href="https://web-production-1a00d.up.railway.app" target="_blank" rel="noopener">
+          <div class="portfolio-image">
+            <div class="portfolio-badge"><span class="portfolio-badge-dot"></span>Live</div>
             <div class="portfolio-image-content">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3"/><polyline points="16 18 22 12 16 6"/></svg>
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
             </div>
           </div>
           <div class="portfolio-info">
-            <div class="portfolio-tags"><span>Telecommunications</span><span>Infrastructure</span></div>
-            <h3>VoIP & Network Infrastructure Rollout</h3>
-            <p>Designed and deployed a complete VoIP and networking solution for a multi-branch financial services firm in Johannesburg.</p>
+            <div class="portfolio-tags"><span>Go + Echo</span><span>Next.js 16</span><span>Postgres</span><span>Auto-grading</span></div>
+            <h3>Paper Sketcher &mdash; modern exam platform</h3>
+            <p>Instructors author timed assessments with multiple-choice, true/false and short-answer questions. Students take them in any browser with auto-grading.</p>
+            <div class="portfolio-cta">Try the live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div>
           </div>
-        </div>
+        </a>
 
-        <div class="portfolio-card reveal reveal-delay-3">
-          <div class="portfolio-image" style="background: linear-gradient(135deg, #0a2342, #1b4332);">
+        <a class="portfolio-card reveal reveal-delay-3" href="https://web-production-33904.up.railway.app" target="_blank" rel="noopener">
+          <div class="portfolio-image">
+            <div class="portfolio-badge"><span class="portfolio-badge-dot"></span>Live</div>
             <div class="portfolio-image-content">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
           </div>
           <div class="portfolio-info">
-            <div class="portfolio-tags"><span>Web App</span><span>Data Analytics</span></div>
-            <h3>Business Intelligence Dashboard</h3>
-            <p>Custom BI dashboard integrating multiple data sources for real-time decision making at an agricultural export company.</p>
+            <div class="portfolio-tags"><span>Go + Echo</span><span>Next.js 16</span><span>Postgres</span><span>Public API</span></div>
+            <h3>EduAR &mdash; AR learning platform</h3>
+            <p>A unified CMS and quiz engine for augmented reality education. Instructors author lessons with AR assets; a public API feeds companion mobile apps.</p>
+            <div class="portfolio-cta">Try the live demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div>
           </div>
-        </div>
+        </a>
 
+      </div>
+
+      <div class="portfolio-footnote reveal">
+        <p>Every flagship is open source under MEND GROUP, deployed to Railway, backed by Postgres, and built around the same core stack: <strong>Go + Echo + GORM</strong> on the backend and <strong>Next.js 16 + React 19 + Tailwind CSS v4</strong> on the frontend.</p>
       </div>
     </div>
   </section>
@@ -372,6 +384,111 @@
     </div>
   </section>
 
+  <!-- Insights & News — Thought Leadership -->
+  <section class="insights" id="insights">
+    <div class="container">
+      <div class="section-label reveal">Insights & News</div>
+      <div class="section-title reveal">Thought leadership from the field</div>
+      <div class="section-desc reveal">Practical perspectives on enterprise technology, infrastructure, and software delivery across Southern Africa.</div>
+
+      <div class="insights-grid">
+        <!-- Featured article -->
+        <article class="insight-card insight-featured reveal reveal-delay-1">
+          <div class="insight-image insight-image-gradient-1">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/><path d="M8 14l2 2 4-4"/></svg>
+          </div>
+          <div class="insight-body">
+            <div class="insight-meta">
+              <span class="insight-tag">Cloud &amp; Infrastructure</span>
+              <span class="insight-date">10 min read</span>
+            </div>
+            <h3>Why Southern African enterprises should rethink the public cloud default</h3>
+            <p>Latency to Frankfurt, forex on monthly bills, and data-sovereignty rules are quietly reshaping where enterprise workloads should actually live. A pragmatic look at the hybrid models working for SACU businesses today.</p>
+            <span class="insight-link">Read the article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </article>
+
+        <!-- Secondary articles -->
+        <article class="insight-card reveal reveal-delay-2">
+          <div class="insight-image insight-image-gradient-2">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          </div>
+          <div class="insight-body">
+            <div class="insight-meta">
+              <span class="insight-tag">Telecommunications</span>
+              <span class="insight-date">6 min read</span>
+            </div>
+            <h3>Closing the last-mile gap in rural SACU connectivity</h3>
+            <p>Mixing fibre, LTE and fixed-wireless to reach the places the big carriers skip &mdash; lessons from the field.</p>
+            <span class="insight-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </article>
+
+        <article class="insight-card reveal reveal-delay-3">
+          <div class="insight-image insight-image-gradient-3">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="insight-body">
+            <div class="insight-meta">
+              <span class="insight-tag">Software Development</span>
+              <span class="insight-date">8 min read</span>
+            </div>
+            <h3>Building software for cross-border commerce in the SACU zone</h3>
+            <p>Multi-currency, multi-tax, multi-VAT, multi-language &mdash; and why you should never &ldquo;just clone the US version.&rdquo;</p>
+            <span class="insight-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </article>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="newsletter reveal">
+        <div class="newsletter-text">
+          <h3>Stay ahead of the curve</h3>
+          <p>Monthly insights on enterprise technology in Southern Africa. No fluff, no spam.</p>
+        </div>
+        <form class="newsletter-form" action="https://formsubmit.co/info@mendgroup.co.za" method="POST">
+          <input type="hidden" name="_subject" value="Newsletter subscription - MEND GROUP">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="email" placeholder="you@company.com" required>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategic Mission — intro to About -->
+  <section class="mission" id="mission">
+    <div class="container">
+      <div class="mission-inner reveal">
+        <div class="section-label">Our Strategic Mission</div>
+        <h2 class="mission-title">Engineering the <em>SADC future</em>, one system at a time.</h2>
+        <p class="mission-body">We build the digital and physical infrastructure that Southern African businesses rely on to compete, grow, and trade across borders. From enterprise software and cloud platforms to telecommunications backbones, our work is rooted in a single principle &mdash; technology should quietly do its job, so our clients can focus on theirs.</p>
+        <div class="mission-pillars">
+          <div class="mission-pillar">
+            <div class="pillar-num">01</div>
+            <h4>Precision</h4>
+            <p>Every line of code, every cable, every integration is built to enterprise standards.</p>
+          </div>
+          <div class="mission-pillar">
+            <div class="pillar-num">02</div>
+            <h4>Regional Fluency</h4>
+            <p>Dual presence in Lesotho and South Africa with deep understanding of SACU operations.</p>
+          </div>
+          <div class="mission-pillar">
+            <div class="pillar-num">03</div>
+            <h4>Reliability</h4>
+            <p>Systems that hold up under load, in the field, and across the long arc of a business.</p>
+          </div>
+          <div class="mission-pillar">
+            <div class="pillar-num">04</div>
+            <h4>Transparency</h4>
+            <p>Honest timelines, clear pricing, no vendor lock-in, no black boxes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- About + Founder -->
   <section class="about" id="about">
     <div class="container">
@@ -434,6 +551,58 @@
             <span class="detail-label">SA Operations</span>
             <span class="detail-value">Johannesburg, Gauteng</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers -->
+  <section class="careers" id="careers">
+    <div class="container">
+      <div class="careers-hero reveal">
+        <div class="careers-hero-content">
+          <div class="section-label">Careers</div>
+          <h2>Build the future of <em>precision engineering</em> in Southern Africa</h2>
+          <p>Join a team solving hard problems at the intersection of software, infrastructure, and cross-border commerce &mdash; for clients who actually feel the impact.</p>
+          <a href="mailto:info@mendgroup.co.za?subject=Career%20Enquiry%20-%20MEND%20GROUP" class="btn-primary">See open roles <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="careers-hero-visual">
+          <div class="careers-stat">
+            <div class="careers-stat-num">LS + ZA</div>
+            <div class="careers-stat-label">Dual presence</div>
+          </div>
+          <div class="careers-stat">
+            <div class="careers-stat-num">Remote-friendly</div>
+            <div class="careers-stat-label">Work from anywhere in SACU</div>
+          </div>
+          <div class="careers-stat">
+            <div class="careers-stat-num">Hands-on</div>
+            <div class="careers-stat-label">Real projects, real impact</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="careers-values reveal reveal-delay-2">
+        <div class="careers-value">
+          <div class="careers-value-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>Technical Depth</h4>
+          <p>We hire for craft, not credentials. If you know what you're doing, we want to work with you.</p>
+        </div>
+        <div class="careers-value">
+          <div class="careers-value-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h4>Autonomy with Purpose</h4>
+          <p>Own your work end-to-end. No endless standups, no micromanagement &mdash; just results.</p>
+        </div>
+        <div class="careers-value">
+          <div class="careers-value-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h4>Growth Without Ceiling</h4>
+          <p>Move across disciplines: software, infrastructure, consulting. We promote from within.</p>
         </div>
       </div>
     </div>
@@ -562,6 +731,8 @@
           <h4>Company</h4>
           <a href="#about">About Us</a>
           <a href="#portfolio">Our Work</a>
+          <a href="#insights">Insights</a>
+          <a href="#careers">Careers</a>
           <a href="#contact">Contact</a>
         </div>
         <div class="footer-col">
