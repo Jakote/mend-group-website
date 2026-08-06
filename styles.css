@@ -963,7 +963,25 @@ nav .container {
   justify-content: center;
   position: relative;
   z-index: 1;
+  width: 100%;
+  height: 100%;
 }
+
+/* Real screenshots of each live app — top-aligned so the hero of each
+   product is what shows in the card. */
+.portfolio-image-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio-card:hover .portfolio-image-content img { transform: scale(1.04); }
+
+/* the decorative gradient overlay must not sit on top of a real screenshot */
+.portfolio-card .portfolio-image:has(img)::before { display: none; }
 
 .portfolio-image-content svg {
   stroke: rgba(255, 255, 255, 0.55);
