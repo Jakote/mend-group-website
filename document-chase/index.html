@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Document Chase Dashboard — Demo by MEND GROUP</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Live demo: automated client document chasing for accounting practices. Built by MEND GROUP.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%230d9488'/><text x='50' y='72' font-size='58' font-weight='bold' text-anchor='middle' fill='white' font-family='sans-serif'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#282d38;
+  --ink:#f2f4f8;--ink2:#a4acbb;--ink3:#6b7385;
+  --ac:#0d9488;--ac2:#2dd4bf;
+  --ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;
+  --r:12px;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+.demo-bar{background:linear-gradient(90deg,var(--ac),#0f766e);padding:9px 16px;text-align:center;font-size:12.5px;font-weight:500;color:#fff}
+.demo-bar a{color:#fff;font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+
+/* header */
+header{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20}
+.hd{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--ac);display:grid;place-items:center;font-family:'Outfit';font-weight:800;font-size:16px;color:#fff}
+.brand b{font-family:'Outfit';font-size:15.5px;font-weight:700;display:block;line-height:1.2}
+.brand span{font-size:11px;color:var(--ink3)}
+.countdown{display:flex;align-items:center;gap:9px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28);padding:7px 14px;border-radius:99px;font-size:12.5px;font-weight:600;color:var(--warn)}
+.countdown b{font-family:'Outfit';font-size:16px}
+
+/* hero strip */
+.intro{padding:26px 0 8px}
+.intro h1{font-family:'Outfit';font-size:clamp(21px,3vw,29px);font-weight:700;letter-spacing:-.02em;margin-bottom:7px}
+.intro p{color:var(--ink2);font-size:14px;line-height:1.7;max-width:660px}
+.intro .hl{color:var(--ac2);font-weight:600}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:600;margin-bottom:7px}
+.stat .v{font-family:'Outfit';font-size:27px;font-weight:800;line-height:1}
+.stat .s{font-size:11.5px;color:var(--ink3);margin-top:5px}
+.v.ok{color:var(--ok)} .v.warn{color:var(--warn)} .v.bad{color:var(--bad)} .v.ac{color:var(--ac2)}
+.bar{height:5px;background:var(--panel2);border-radius:3px;margin-top:10px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+
+/* panel */
+.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-bottom:26px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);gap:10px;flex-wrap:wrap}
+.ch h2{font-family:'Outfit';font-size:14.5px;font-weight:700}
+.ch .sub{font-size:11.5px;color:var(--ink3)}
+.btn{background:var(--ac);color:#fff;border:none;padding:9px 15px;border-radius:9px;font-family:'Inter';font-weight:700;font-size:12.5px;cursor:pointer;transition:.2s}
+.btn:hover{background:#0f766e;transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink2)}
+.btn.ghost:hover{border-color:var(--ac);color:var(--ac2);background:transparent}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 18px;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:600;border-bottom:1px solid var(--line);background:var(--panel2)}
+td{padding:11px 18px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr.row:hover{background:var(--panel2)}
+.client{font-weight:600}
+.client small{display:block;font-weight:400;color:var(--ink3);font-size:11px;margin-top:2px}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-ok{background:rgba(34,197,94,.12);color:var(--ok)}
+.p-warn{background:rgba(245,158,11,.12);color:var(--warn)}
+.p-bad{background:rgba(239,68,68,.12);color:var(--bad)}
+.p-idle{background:rgba(107,115,133,.15);color:var(--ink3)}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.docs{display:flex;gap:4px}
+.doc{width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font-size:9.5px;font-weight:700;background:var(--panel2);color:var(--ink3);border:1px solid var(--line)}
+.doc.has{background:rgba(34,197,94,.14);color:var(--ok);border-color:rgba(34,197,94,.3)}
+.doc.miss{background:rgba(239,68,68,.1);color:var(--bad);border-color:rgba(239,68,68,.25)}
+
+/* activity feed */
+.feed{max-height:430px;overflow-y:auto}
+.ev{display:flex;gap:11px;padding:12px 18px;border-bottom:1px solid var(--line);font-size:12.5px;animation:slide .35s ease}
+@keyframes slide{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.ev:last-child{border-bottom:none}
+.ev .ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:12px;flex-shrink:0}
+.ic.mail{background:rgba(13,148,136,.14);color:var(--ac2)}
+.ic.wa{background:rgba(34,197,94,.13);color:var(--ok)}
+.ic.esc{background:rgba(245,158,11,.13);color:var(--warn)}
+.ic.got{background:rgba(45,212,191,.13);color:var(--ac2)}
+.ev .tx{flex:1;line-height:1.5}
+.ev .tx b{font-weight:600}
+.ev .tm{font-size:10.5px;color:var(--ink3);margin-top:2px}
+
+/* footer cta */
+.cta{background:linear-gradient(135deg,rgba(13,148,136,.14),rgba(13,148,136,.04));border:1px solid rgba(13,148,136,.3);border-radius:16px;padding:clamp(24px,4vw,38px);margin:6px 0 34px;display:grid;grid-template-columns:1.4fr auto;gap:24px;align-items:center}
+.cta h3{font-family:'Outfit';font-size:clamp(19px,2.4vw,24px);font-weight:700;margin-bottom:9px}
+.cta p{color:var(--ink2);font-size:13.5px;line-height:1.75;max-width:620px}
+.cta .price{font-family:'Outfit';color:var(--ac2);font-weight:700}
+.cta-btns{display:flex;flex-direction:column;gap:9px}
+.cta-btns a{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap;transition:.2s}
+.a-wa{background:#25d366;color:#fff}
+.a-wa:hover{background:#1fb457;transform:translateY(-2px)}
+.a-mail{background:transparent;border:1px solid var(--line);color:var(--ink2)}
+.a-mail:hover{border-color:var(--ac);color:var(--ac2)}
+footer{border-top:1px solid var(--line);padding:20px 0;text-align:center;font-size:11.5px;color:var(--ink3)}
+footer a{color:var(--ac2);text-decoration:none;font-weight:600}
+.note{font-size:11.5px;color:var(--ink3);padding:11px 18px;background:var(--panel2);border-top:1px solid var(--line);line-height:1.6}
+
+@media(max-width:900px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.cta{grid-template-columns:1fr}}
+@media(max-width:560px){.stats{grid-template-columns:1fr}th:nth-child(3),td:nth-child(3){display:none}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Demo with sample data. Built by <a href="https://mendgroup.co.za">MEND GROUP</a> — your version runs on your client list and your deadlines.</div>
+
+<header><div class="wrap hd">
+  <div class="brand"><div class="logo">M</div><div><b>Document Chase</b><span>Provisional tax · Aug 2026 cycle</span></div></div>
+  <div class="countdown">⏳ <span id="cdlabel">Next provisional deadline</span> <b id="days">·</b></div>
+</div></header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h1>Who still owes you documents?</h1>
+    <p>This is the board your practice opens every morning of a filing cycle. It knows what each client still owes, sends the reminders on a schedule you set, and flags the ones who have gone quiet. <span class="hl">Nobody types any of it.</span></p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Clients in cycle</div><div class="v">137</div>
+      <div class="bar"><i style="width:59%;background:var(--ok)"></i><i style="width:28%;background:var(--warn)"></i><i style="width:13%;background:var(--bad)"></i></div>
+      <div class="s">81 complete · 39 partial · 17 nothing</div></div>
+    <div class="stat"><div class="k">Documents received</div><div class="v ok" id="pct">59%</div><div class="s" id="docs">407 of 685 collected</div></div>
+    <div class="stat"><div class="k">Reminders sent automatically</div><div class="v ac" id="sent">983</div><div class="s">this cycle · 0 by hand</div></div>
+    <div class="stat"><div class="k">Chased by hand</div><div class="v ac">0</div><div class="s">every reminder above went out on its own</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="ch">
+        <div><h2>Outstanding clients</h2><div class="sub">Worst offenders first</div></div>
+        <button class="btn" id="run">Run today's chase</button>
+      </div>
+      <table>
+        <thead><tr><th>Client</th><th>Documents</th><th>Last contact</th><th>Status</th></tr></thead>
+        <tbody id="tb"></tbody>
+      </table>
+      <div class="note"><b>IRP6</b> · <b>BNK</b> bank statements · <b>INV</b> invoices · <b>PAY</b> payroll · <b>VAT</b> VAT records — green = received, red = outstanding.</div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><div><h2>Activity</h2><div class="sub">What the system did today</div></div></div>
+      <div class="feed" id="feed"></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h3>We can have this running for you in 7–10 days.</h3>
+      <p>Reminders go by email and WhatsApp, on rules you decide. It reads from whatever you already use (Xero, Sage, Draftworx, or the spreadsheet you actually keep it in) so nothing gets replaced and your clients have nothing new to learn. <span class="price">Fixed price from R5,000</span>, half up front.</p>
+    </div>
+    <div class="cta-btns">
+      <a class="a-wa" href="https://wa.me/27832092120?text=Hi%20Jakote%2C%20I%20saw%20the%20document%20chase%20demo%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20setting%20this%20up." target="_blank" rel="noopener">💬 WhatsApp Jakote</a>
+      <a class="a-mail" href="mailto:info@mendgroup.co.za?subject=Document%20chase%20automation">✉ Book a 15-min call</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">Demo built by <a href="https://mendgroup.co.za">MEND GROUP (PTY) LTD</a> · Reg 96070 · Jakote Lejaha · +27 83 209 2120<br>Sample data. No real client information is shown.</div></footer>
+
+<script>
+const CLIENTS=[
+ {n:"Molefe Transport CC",t:"IRP6 · prov",d:[1,1,0,0,1],last:"3 reminders, nothing back",s:"bad",txt:"Gone quiet"},
+ {n:"Naledi Trading Enterprise",t:"IRP6 · prov",d:[1,0,0,1,1],last:"Reminder 2 · Tue",s:"warn",txt:"Chasing"},
+ {n:"K. Mothibe Plumbing",t:"IRP6 · prov",d:[0,0,0,0,0],last:"Reminder 1 · last Fri",s:"bad",txt:"Nothing in"},
+ {n:"Bo-Kaap Bakery",t:"IRP6 · prov",d:[1,1,1,0,1],last:"Reminder 1 · yesterday",s:"warn",txt:"Payroll only"},
+ {n:"Mabaso & Sons Logistics",t:"IRP6 · prov",d:[1,1,0,1,1],last:"“bookkeeper is on leave till Mon”",s:"warn",txt:"Promised"},
+ {n:"Zanele Hair & Beauty",t:"IRP6 · prov",d:[0,1,0,0,1],last:"Reminder 3 · 07:30 today",s:"bad",txt:"Escalated"},
+ {n:"Highveld Security Services",t:"IRP6 · prov",d:[1,1,1,1,1],last:"All in · Mon",s:"ok",txt:"Done"},
+ {n:"Lerato Ndlovu Consulting",t:"IRP6 · prov",d:[1,1,1,1,0],last:"Reminder 1 · Wed",s:"warn",txt:"VAT only"},
+];
+const LBL=["IRP6","BNK","INV","PAY","VAT"];
+const P={ok:"p-ok",warn:"p-warn",bad:"p-bad"};
+function draw(){
+  document.getElementById('tb').innerHTML=CLIENTS.map(c=>`
+   <tr class="row">
+    <td class="client">${c.n}<small>${c.t}</small></td>
+    <td><div class="docs">${c.d.map((v,i)=>`<div class="doc ${v?'has':'miss'}" title="${LBL[i]}">${LBL[i].slice(0,3)}</div>`).join('')}</div></td>
+    <td style="color:var(--ink3);font-size:12px">${c.last}</td>
+    <td><span class="pill ${P[c.s]}"><i class="dot"></i>${c.txt}</span></td>
+   </tr>`).join('');
+}
+draw();
+
+const SEED=[
+ {i:"got",c:"Highveld Security",t:"uploaded VAT records — file complete",m:"08:12"},
+ {i:"esc",c:"Zanele Hair & Beauty",t:"3rd reminder ignored, moved to your call list",m:"07:47"},
+ {i:"wa",c:"Mabaso & Sons",t:"replied on WhatsApp: “bookkeeper is on leave till Mon”",m:"07:41"},
+ {i:"mail",c:"Naledi Trading",t:"reminder 2 sent (bank statements, invoices)",m:"07:30"},
+ {i:"mail",c:"14 clients",t:"morning batch went out",m:"07:30"},
+];
+const IC={mail:"✉",wa:"💬",esc:"⚠",got:"✓"};
+function feed(list){
+  document.getElementById('feed').innerHTML=list.map(e=>`
+   <div class="ev"><div class="ic ${e.i}">${IC[e.i]}</div>
+    <div class="tx"><b>${e.c}</b> ${e.t}<div class="tm">${e.m} · today</div></div></div>`).join('');
+}
+feed(SEED);
+
+// "Run today's chase" — shows what the automation does each morning
+document.getElementById('run').addEventListener('click',function(){
+  const b=this; b.disabled=true; b.textContent="Running…";
+  const steps=[
+   {i:"mail",c:"K. Mothibe Plumbing",t:"reminder 2 sent, still nothing on file",m:"now"},
+   {i:"wa",c:"Bo-Kaap Bakery",t:"WhatsApp sent, payroll still missing",m:"now"},
+   {i:"esc",c:"Molefe Transport",t:"no reply in 11 days, escalated to you",m:"now"},
+   {i:"mail",c:"Lerato Ndlovu Consulting",t:"reminder 2 sent (VAT records)",m:"now"},
+  ];
+  let n=0, cur=SEED.slice();
+  const iv=setInterval(()=>{
+    cur.unshift(steps[n]); feed(cur);
+    const s=document.getElementById('sent'); s.textContent=(983+n+1).toLocaleString();
+    if(++n>=steps.length){clearInterval(iv); b.textContent="Done — 4 actions";
+      setTimeout(()=>{b.disabled=false;b.textContent="Run today's chase"},2600);}
+  },850);
+});
+
+// Rolls to whichever SARS provisional deadline is next: 31 Aug, then 28/29 Feb.
+// The previous version counted to a single fixed date and read "in 0 days left"
+// from 1 September onward, on a page being shown to accountants.
+(function(){
+  const now = new Date();
+  function feb(y){ const leap=(y%4===0&&y%100!==0)||y%400===0; return new Date(y+"-02-"+(leap?29:28)+"T23:59:59+02:00"); }
+  const marks = [new Date(now.getFullYear()+"-08-31T23:59:59+02:00"), feb(now.getFullYear()+1)];
+  const next = marks.find(d => d > now) || feb(now.getFullYear()+1);
+  const days = Math.ceil((next - now)/864e5);
+  const name = next.getMonth()===7 ? "first provisional, 31 August" : "second provisional, end February";
+  document.getElementById('cdlabel').textContent = name;
+  document.getElementById('days').textContent = days + (days===1 ? " day away" : " days away");
+})();
+</script>
+</body>
+</html>
