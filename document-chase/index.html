@@ -1,245 +1,283 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-ZA">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Document Chase Dashboard — Demo by MEND GROUP</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<meta name="description" content="Live demo: automated client document chasing for accounting practices. Built by MEND GROUP.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%230d9488'/><text x='50' y='72' font-size='58' font-weight='bold' text-anchor='middle' fill='white' font-family='sans-serif'>M</text></svg>">
+<title>Document Chase · MEND GROUP</title>
+<meta name="description" content="A working board that tracks which clients still owe you documents for a SARS provisional cycle, sends the reminders on your schedule, and flags the ones who have gone quiet.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2300685f'/><text x='16' y='23' font-family='sans-serif' font-size='19' font-weight='700' fill='%23fff' text-anchor='middle'>M</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+/* MEND GROUP's own tokens, lifted from mendgroup.co.za. The previous version of this page
+   was a dark teal dashboard that looked like a different company's product to anyone
+   arriving from a MEND email. */
 :root{
-  --bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#282d38;
-  --ink:#f2f4f8;--ink2:#a4acbb;--ink3:#6b7385;
-  --ac:#0d9488;--ac2:#2dd4bf;
-  --ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;
-  --r:12px;
+  --surface:#f9f9f8; --bright:#fff; --low:#f3f4f3; --container:#eeeeed; --high:#e8e8e7;
+  --ink:#1a1c1c; --ink2:#3d4947; --ink3:#6d7a77;
+  --line:#dfe5e3; --line2:#bcc9c6;
+  --primary:#00685f; --primary2:#008378; --primary-pale:#e6f2f0;
+  --ok:#146c43; --ok-bg:#e7f3ec;
+  --warn:#8a5300; --warn-bg:#fdf2e0;
+  --bad:#9b2c22; --bad-bg:#fbeae8;
+  --display:'Plus Jakarta Sans','Inter',sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --label:'Space Grotesk','Inter',sans-serif;
 }
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
-.demo-bar{background:linear-gradient(90deg,var(--ac),#0f766e);padding:9px 16px;text-align:center;font-size:12.5px;font-weight:500;color:#fff}
-.demo-bar a{color:#fff;font-weight:700}
-.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--surface);color:var(--ink);font:15px/1.55 var(--body);
+     -webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+a{color:var(--primary)}
 
-/* header */
-header{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20}
-.hd{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px;flex-wrap:wrap}
+/* honest label, not a marketing banner */
+.strip{background:var(--ink);color:#e9edec;font-size:12.5px;letter-spacing:.01em}
+.strip .wrap{padding:9px 22px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.strip b{color:#fff;font-weight:600}
+.strip a{color:#8fded2;text-decoration:none;border-bottom:1px solid rgba(143,222,210,.4)}
+
+header{background:var(--bright);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px 22px}
 .brand{display:flex;align-items:center;gap:11px}
-.logo{width:34px;height:34px;border-radius:9px;background:var(--ac);display:grid;place-items:center;font-family:'Outfit';font-weight:800;font-size:16px;color:#fff}
-.brand b{font-family:'Outfit';font-size:15.5px;font-weight:700;display:block;line-height:1.2}
-.brand span{font-size:11px;color:var(--ink3)}
-.countdown{display:flex;align-items:center;gap:9px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28);padding:7px 14px;border-radius:99px;font-size:12.5px;font-weight:600;color:var(--warn)}
-.countdown b{font-family:'Outfit';font-size:16px}
+.mark{width:34px;height:34px;border-radius:8px;background:var(--primary);color:#fff;
+      display:grid;place-items:center;font:700 16px/1 var(--display)}
+.brand h1{margin:0;font:700 16px/1.2 var(--display);letter-spacing:-.01em}
+.brand span{display:block;font:500 11.5px/1.4 var(--label);color:var(--ink3);
+            letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.deadline{text-align:right;font-size:12.5px;color:var(--ink2);white-space:nowrap}
+.deadline b{display:block;font:600 15px/1.3 var(--display);color:var(--ink)}
 
-/* hero strip */
-.intro{padding:26px 0 8px}
-.intro h1{font-family:'Outfit';font-size:clamp(21px,3vw,29px);font-weight:700;letter-spacing:-.02em;margin-bottom:7px}
-.intro p{color:var(--ink2);font-size:14px;line-height:1.7;max-width:660px}
-.intro .hl{color:var(--ac2);font-weight:600}
+.lede{padding:34px 0 4px}
+.lede h2{margin:0 0 10px;font:800 clamp(25px,3.4vw,34px)/1.15 var(--display);letter-spacing:-.02em;max-width:19ch}
+.lede p{margin:0;max-width:60ch;color:var(--ink2);font-size:15.5px;line-height:1.65}
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
-.stat .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:600;margin-bottom:7px}
-.stat .v{font-family:'Outfit';font-size:27px;font-weight:800;line-height:1}
-.stat .s{font-size:11.5px;color:var(--ink3);margin-top:5px}
-.v.ok{color:var(--ok)} .v.warn{color:var(--warn)} .v.bad{color:var(--bad)} .v.ac{color:var(--ac2)}
-.bar{height:5px;background:var(--panel2);border-radius:3px;margin-top:10px;overflow:hidden;display:flex}
-.bar i{display:block;height:100%}
+/* Dense figures, the way a practice reads a trial balance: a row, not four big cards. */
+.figs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:26px 0 30px;
+      background:var(--bright);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.fig{padding:16px 18px;border-right:1px solid var(--line)}
+.fig:last-child{border-right:0}
+.fig .k{font:500 11px/1.3 var(--label);letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+.fig .v{font:700 27px/1.15 var(--display);letter-spacing:-.02em;margin:7px 0 3px;
+        font-variant-numeric:tabular-nums}
+.fig .s{font-size:12.5px;color:var(--ink3);line-height:1.45}
+.split{display:flex;height:4px;border-radius:2px;overflow:hidden;margin:9px 0 7px;background:var(--container)}
+.split i{display:block}
 
-/* panel */
-.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-bottom:26px;align-items:start}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);gap:10px;flex-wrap:wrap}
-.ch h2{font-family:'Outfit';font-size:14.5px;font-weight:700}
-.ch .sub{font-size:11.5px;color:var(--ink3)}
-.btn{background:var(--ac);color:#fff;border:none;padding:9px 15px;border-radius:9px;font-family:'Inter';font-weight:700;font-size:12.5px;cursor:pointer;transition:.2s}
-.btn:hover{background:#0f766e;transform:translateY(-1px)}
-.btn:disabled{opacity:.5;cursor:default;transform:none}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink2)}
-.btn.ghost:hover{border-color:var(--ac);color:var(--ac2);background:transparent}
+.cols{display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start;padding-bottom:34px}
+.card{background:var(--bright);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ch{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 18px;border-bottom:1px solid var(--line)}
+.ch h3{margin:0;font:700 14.5px/1.3 var(--display)}
+.ch p{margin:2px 0 0;font-size:12.5px;color:var(--ink3)}
+.btn{appearance:none;border:1px solid var(--primary);background:var(--primary);color:#fff;
+     font:600 13px var(--body);padding:8px 15px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--primary2);border-color:var(--primary2)}
+.btn:disabled{opacity:.55;cursor:default}
 
-/* table */
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;padding:10px 18px;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:600;border-bottom:1px solid var(--line);background:var(--panel2)}
-td{padding:11px 18px;border-bottom:1px solid var(--line);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr.row:hover{background:var(--panel2)}
-.client{font-weight:600}
-.client small{display:block;font-weight:400;color:var(--ink3);font-size:11px;margin-top:2px}
-.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap}
-.p-ok{background:rgba(34,197,94,.12);color:var(--ok)}
-.p-warn{background:rgba(245,158,11,.12);color:var(--warn)}
-.p-bad{background:rgba(239,68,68,.12);color:var(--bad)}
-.p-idle{background:rgba(107,115,133,.15);color:var(--ink3)}
-.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-.docs{display:flex;gap:4px}
-.doc{width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font-size:9.5px;font-weight:700;background:var(--panel2);color:var(--ink3);border:1px solid var(--line)}
-.doc.has{background:rgba(34,197,94,.14);color:var(--ok);border-color:rgba(34,197,94,.3)}
-.doc.miss{background:rgba(239,68,68,.1);color:var(--bad);border-color:rgba(239,68,68,.25)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font:500 10.5px/1.3 var(--label);letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);
+   text-align:left;padding:10px 18px;border-bottom:1px solid var(--line);background:var(--low)}
+td{padding:13px 18px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--low)}
+.cl{font-weight:600}
+.cl span{display:block;font:500 11px/1.4 var(--label);color:var(--ink3);letter-spacing:.04em;margin-top:2px}
+.docs{display:flex;gap:4px;flex-wrap:wrap}
+.doc{font:600 10px/1 var(--label);letter-spacing:.05em;padding:5px 6px;border-radius:4px;border:1px solid}
+.doc.in{background:var(--ok-bg);border-color:#bcdfc9;color:var(--ok)}
+.doc.out{background:var(--bad-bg);border-color:#f0c9c4;color:var(--bad)}
+.when{font-size:13px;color:var(--ink2)}
+.pill{display:inline-block;font:600 11.5px/1 var(--body);padding:6px 10px;border-radius:20px;white-space:nowrap}
+.p-quiet{background:var(--bad-bg);color:var(--bad)}
+.p-chase{background:var(--warn-bg);color:var(--warn)}
+.p-part{background:var(--container);color:var(--ink2)}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
 
-/* activity feed */
-.feed{max-height:430px;overflow-y:auto}
-.ev{display:flex;gap:11px;padding:12px 18px;border-bottom:1px solid var(--line);font-size:12.5px;animation:slide .35s ease}
-@keyframes slide{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
-.ev:last-child{border-bottom:none}
-.ev .ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:12px;flex-shrink:0}
-.ic.mail{background:rgba(13,148,136,.14);color:var(--ac2)}
-.ic.wa{background:rgba(34,197,94,.13);color:var(--ok)}
-.ic.esc{background:rgba(245,158,11,.13);color:var(--warn)}
-.ic.got{background:rgba(45,212,191,.13);color:var(--ac2)}
-.ev .tx{flex:1;line-height:1.5}
-.ev .tx b{font-weight:600}
-.ev .tm{font-size:10.5px;color:var(--ink3);margin-top:2px}
+.feed{padding:6px 0}
+.ev{display:flex;gap:11px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.ev:last-child{border-bottom:0}
+.ic{flex:none;width:24px;height:24px;border-radius:6px;display:grid;place-items:center;
+    font:600 11px/1 var(--label);margin-top:1px}
+.ic.a{background:var(--ok-bg);color:var(--ok)}
+.ic.b{background:var(--warn-bg);color:var(--warn)}
+.ic.c{background:var(--primary-pale);color:var(--primary)}
+.ev p{margin:0;font-size:13.5px;line-height:1.5}
+.ev b{font-weight:600}
+.ev time{display:block;font:500 11px/1.4 var(--label);color:var(--ink3);letter-spacing:.04em;margin-top:3px}
 
-/* footer cta */
-.cta{background:linear-gradient(135deg,rgba(13,148,136,.14),rgba(13,148,136,.04));border:1px solid rgba(13,148,136,.3);border-radius:16px;padding:clamp(24px,4vw,38px);margin:6px 0 34px;display:grid;grid-template-columns:1.4fr auto;gap:24px;align-items:center}
-.cta h3{font-family:'Outfit';font-size:clamp(19px,2.4vw,24px);font-weight:700;margin-bottom:9px}
-.cta p{color:var(--ink2);font-size:13.5px;line-height:1.75;max-width:620px}
-.cta .price{font-family:'Outfit';color:var(--ac2);font-weight:700}
-.cta-btns{display:flex;flex-direction:column;gap:9px}
-.cta-btns a{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap;transition:.2s}
-.a-wa{background:#25d366;color:#fff}
-.a-wa:hover{background:#1fb457;transform:translateY(-2px)}
-.a-mail{background:transparent;border:1px solid var(--line);color:var(--ink2)}
-.a-mail:hover{border-color:var(--ac);color:var(--ac2)}
-footer{border-top:1px solid var(--line);padding:20px 0;text-align:center;font-size:11.5px;color:var(--ink3)}
-footer a{color:var(--ac2);text-decoration:none;font-weight:600}
-.note{font-size:11.5px;color:var(--ink3);padding:11px 18px;background:var(--panel2);border-top:1px solid var(--line);line-height:1.6}
+.foot{background:var(--bright);border-top:1px solid var(--line);margin-top:8px}
+.foot .wrap{padding:26px 22px;display:flex;gap:22px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.foot h3{margin:0 0 5px;font:700 16px/1.3 var(--display)}
+.foot p{margin:0;color:var(--ink2);font-size:14px;max-width:56ch}
+.foot .who{font-size:12.5px;color:var(--ink3);margin-top:9px}
 
-@media(max-width:900px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.cta{grid-template-columns:1fr}}
-@media(max-width:560px){.stats{grid-template-columns:1fr}th:nth-child(3),td:nth-child(3){display:none}}
+@media(max-width:900px){
+  .cols{grid-template-columns:1fr}
+  .figs{grid-template-columns:1fr 1fr}
+  .fig:nth-child(2){border-right:0}
+  .fig:nth-child(1),.fig:nth-child(2){border-bottom:1px solid var(--line)}
+}
+@media(max-width:560px){
+  .figs{grid-template-columns:1fr}
+  .fig{border-right:0;border-bottom:1px solid var(--line)}
+  .fig:last-child{border-bottom:0}
+  .tblwrap{overflow-x:auto}
+  table{min-width:560px}
+  .hd{flex-direction:column;align-items:flex-start;gap:10px}
+  .deadline{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 
-<div class="demo-bar">Demo with sample data. Built by <a href="https://mendgroup.co.za">MEND GROUP</a> — your version runs on your client list and your deadlines.</div>
+<div class="strip"><div class="wrap">
+  <span><b>Sample data.</b> Built by <a href="https://mendgroup.co.za">MEND GROUP</a>.
+  Your version runs on your own client list, your document types and your deadlines.</span>
+</div></div>
 
 <header><div class="wrap hd">
-  <div class="brand"><div class="logo">M</div><div><b>Document Chase</b><span>Provisional tax · Aug 2026 cycle</span></div></div>
-  <div class="countdown">⏳ <span id="cdlabel">Next provisional deadline</span> <b id="days">·</b></div>
+  <div class="brand">
+    <div class="mark">M</div>
+    <div><h1>Document Chase</h1><span>Provisional tax estimates</span></div>
+  </div>
+  <div class="deadline">
+    <b id="dl">·</b>
+    <span id="dlname">next provisional deadline</span>
+  </div>
 </div></header>
 
 <div class="wrap">
-
-  <div class="intro">
-    <h1>Who still owes you documents?</h1>
-    <p>This is the board your practice opens every morning of a filing cycle. It knows what each client still owes, sends the reminders on a schedule you set, and flags the ones who have gone quiet. <span class="hl">Nobody types any of it.</span></p>
+  <div class="lede">
+    <h2>Who still owes you documents?</h2>
+    <p>The board a practice opens each morning of a filing cycle. It knows what every client
+       still owes, sends the reminders on the schedule you set, escalates the ones who ignore
+       them, and tells you who has gone quiet. Nobody types any of it.</p>
   </div>
 
-  <div class="stats">
-    <div class="stat"><div class="k">Clients in cycle</div><div class="v">137</div>
-      <div class="bar"><i style="width:59%;background:var(--ok)"></i><i style="width:28%;background:var(--warn)"></i><i style="width:13%;background:var(--bad)"></i></div>
-      <div class="s">81 complete · 39 partial · 17 nothing</div></div>
-    <div class="stat"><div class="k">Documents received</div><div class="v ok" id="pct">59%</div><div class="s" id="docs">407 of 685 collected</div></div>
-    <div class="stat"><div class="k">Reminders sent automatically</div><div class="v ac" id="sent">983</div><div class="s">this cycle · 0 by hand</div></div>
-    <div class="stat"><div class="k">Chased by hand</div><div class="v ac">0</div><div class="s">every reminder above went out on its own</div></div>
+  <div class="figs">
+    <div class="fig">
+      <div class="k">Clients in cycle</div>
+      <div class="v">137</div>
+      <div class="split"><i style="width:44.5%;background:#3f9d6b"></i><i style="width:43.1%;background:#d9a441"></i><i style="width:12.4%;background:#c0574b"></i></div>
+      <div class="s">61 complete · 59 partial · 17 nothing in</div>
+    </div>
+    <div class="fig">
+      <div class="k">Documents in</div>
+      <div class="v">407<span style="font-size:15px;color:var(--ink3);font-weight:500"> / 685</span></div>
+      <div class="s">59% in · 61 files complete, 76 still short</div>
+    </div>
+    <div class="fig">
+      <div class="k">Reminders sent</div>
+      <div class="v">214</div>
+      <div class="s">across 76 clients, none typed by hand</div>
+    </div>
+    <div class="fig">
+      <div class="k">Files closed this week</div>
+      <div class="v">23</div>
+      <div class="s">complete, without anyone phoning</div>
+    </div>
   </div>
 
-  <div class="grid">
+  <div class="cols">
     <div class="card">
       <div class="ch">
-        <div><h2>Outstanding clients</h2><div class="sub">Worst offenders first</div></div>
+        <div><h3>Outstanding clients</h3><p>Longest silence first</p></div>
         <button class="btn" id="run">Run today's chase</button>
       </div>
-      <table>
-        <thead><tr><th>Client</th><th>Documents</th><th>Last contact</th><th>Status</th></tr></thead>
-        <tbody id="tb"></tbody>
-      </table>
-      <div class="note"><b>IRP6</b> · <b>BNK</b> bank statements · <b>INV</b> invoices · <b>PAY</b> payroll · <b>VAT</b> VAT records — green = received, red = outstanding.</div>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Client</th><th>Documents outstanding</th><th>Last contact</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="cl">Molefe Transport CC<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc in">MGMT</em><em class="doc in">BANK</em><em class="doc out">SALES</em><em class="doc out">EXP</em><em class="doc out">ITA34</em></div></td>
+              <td class="when">3 reminders, nothing back</td>
+              <td><span class="pill p-quiet">Gone quiet</span></td></tr>
+          <tr><td class="cl">Naledi Trading Enterprise<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc in">MGMT</em><em class="doc out">BANK</em><em class="doc out">SALES</em><em class="doc in">EXP</em><em class="doc in">ITA34</em></div></td>
+              <td class="when">Reminder 2 · Tuesday</td>
+              <td><span class="pill p-chase">Chasing</span></td></tr>
+          <tr><td class="cl">K. Mothibe Plumbing<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc out">MGMT</em><em class="doc out">BANK</em><em class="doc out">SALES</em><em class="doc out">EXP</em><em class="doc out">ITA34</em></div></td>
+              <td class="when">Reminder 1 · last Friday</td>
+              <td><span class="pill p-quiet">Nothing in</span></td></tr>
+          <tr><td class="cl">Randburg Bakery CC<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc in">MGMT</em><em class="doc in">BANK</em><em class="doc out">SALES</em><em class="doc out">EXP</em><em class="doc in">ITA34</em></div></td>
+              <td class="when">Reminder 1 · yesterday</td>
+              <td><span class="pill p-part">Sales figures out</span></td></tr>
+          <tr><td class="cl">Mabaso &amp; Sons Logistics<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc in">MGMT</em><em class="doc in">BANK</em><em class="doc out">SALES</em><em class="doc in">EXP</em><em class="doc in">ITA34</em></div></td>
+              <td class="when">“bookkeeper back Monday”</td>
+              <td><span class="pill p-chase">Promised</span></td></tr>
+          <tr><td class="cl">Zanele Hair &amp; Beauty<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc out">MGMT</em><em class="doc out">BANK</em><em class="doc out">SALES</em><em class="doc in">EXP</em><em class="doc out">ITA34</em></div></td>
+              <td class="when">Reminder 3 · 07:30 today</td>
+              <td><span class="pill p-quiet">On your call list</span></td></tr>
+          <tr><td class="cl">Highveld Security Services<span>Feb year-end</span></td>
+              <td><div class="docs"><em class="doc in">MGMT</em><em class="doc in">BANK</em><em class="doc in">SALES</em><em class="doc in">EXP</em><em class="doc in">ITA34</em></div></td>
+              <td class="when">Uploaded 08:12 today</td>
+              <td><span class="pill p-ok">File complete</span></td></tr>
+        </tbody>
+      </table></div>
     </div>
 
     <div class="card">
-      <div class="ch"><div><h2>Activity</h2><div class="sub">What the system did today</div></div></div>
-      <div class="feed" id="feed"></div>
-    </div>
-  </div>
-
-  <div class="cta">
-    <div>
-      <h3>We can have this running for you in 7–10 days.</h3>
-      <p>Reminders go by email and WhatsApp, on rules you decide. It reads from whatever you already use (Xero, Sage, Draftworx, or the spreadsheet you actually keep it in) so nothing gets replaced and your clients have nothing new to learn. <span class="price">Fixed price from R5,000</span>, half up front.</p>
-    </div>
-    <div class="cta-btns">
-      <a class="a-wa" href="https://wa.me/27832092120?text=Hi%20Jakote%2C%20I%20saw%20the%20document%20chase%20demo%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20setting%20this%20up." target="_blank" rel="noopener">💬 WhatsApp Jakote</a>
-      <a class="a-mail" href="mailto:info@mendgroup.co.za?subject=Document%20chase%20automation">✉ Book a 15-min call</a>
+      <div class="ch"><div><h3>Today</h3><p>What the system did without you</p></div></div>
+      <div class="feed" id="feed">
+        <div class="ev"><div class="ic a">✓</div><p><b>Highveld Security</b> uploaded VAT records. File complete.<time>08:12</time></p></div>
+        <div class="ev"><div class="ic b">!</div><p><b>Zanele Hair &amp; Beauty</b> ignored a third reminder and moved to your call list.<time>07:47</time></p></div>
+        <div class="ev"><div class="ic c">↩</div><p><b>Mabaso &amp; Sons</b> replied on WhatsApp: “bookkeeper is on leave till Mon”.<time>07:41</time></p></div>
+        <div class="ev"><div class="ic c">→</div><p><b>Naledi Trading</b> reminder 2 sent, asking for bank statements and invoices.<time>07:30</time></p></div>
+        <div class="ev"><div class="ic c">→</div><p>Morning batch went out to <b>14 clients</b>.<time>07:30</time></p></div>
+      </div>
     </div>
   </div>
 </div>
 
-<footer><div class="wrap">Demo built by <a href="https://mendgroup.co.za">MEND GROUP (PTY) LTD</a> · Reg 96070 · Jakote Lejaha · +27 83 209 2120<br>Sample data. No real client information is shown.</div></footer>
+<div class="foot"><div class="wrap">
+  <div>
+    <h3>This runs on your client list, not a sample</h3>
+    <p>R5,000 for a single workflow, working in 7 to 10 days. Your document types, your reminder
+       wording, your escalation rules, your deadlines.</p>
+    <p class="who">MEND GROUP (PTY) LTD · registered in Lesotho, Reg 96070 · Jakote Lejaha ·
+       <a href="https://mendgroup.co.za">mendgroup.co.za</a> · +27 83 209 2120</p>
+  </div>
+  <a class="btn" href="mailto:info@mendgroup.co.za?subject=Document%20Chase">Talk to us</a>
+</div></div>
 
 <script>
-const CLIENTS=[
- {n:"Molefe Transport CC",t:"IRP6 · prov",d:[1,1,0,0,1],last:"3 reminders, nothing back",s:"bad",txt:"Gone quiet"},
- {n:"Naledi Trading Enterprise",t:"IRP6 · prov",d:[1,0,0,1,1],last:"Reminder 2 · Tue",s:"warn",txt:"Chasing"},
- {n:"K. Mothibe Plumbing",t:"IRP6 · prov",d:[0,0,0,0,0],last:"Reminder 1 · last Fri",s:"bad",txt:"Nothing in"},
- {n:"Bo-Kaap Bakery",t:"IRP6 · prov",d:[1,1,1,0,1],last:"Reminder 1 · yesterday",s:"warn",txt:"Payroll only"},
- {n:"Mabaso & Sons Logistics",t:"IRP6 · prov",d:[1,1,0,1,1],last:"“bookkeeper is on leave till Mon”",s:"warn",txt:"Promised"},
- {n:"Zanele Hair & Beauty",t:"IRP6 · prov",d:[0,1,0,0,1],last:"Reminder 3 · 07:30 today",s:"bad",txt:"Escalated"},
- {n:"Highveld Security Services",t:"IRP6 · prov",d:[1,1,1,1,1],last:"All in · Mon",s:"ok",txt:"Done"},
- {n:"Lerato Ndlovu Consulting",t:"IRP6 · prov",d:[1,1,1,1,0],last:"Reminder 1 · Wed",s:"warn",txt:"VAT only"},
-];
-const LBL=["IRP6","BNK","INV","PAY","VAT"];
-const P={ok:"p-ok",warn:"p-warn",bad:"p-bad"};
-function draw(){
-  document.getElementById('tb').innerHTML=CLIENTS.map(c=>`
-   <tr class="row">
-    <td class="client">${c.n}<small>${c.t}</small></td>
-    <td><div class="docs">${c.d.map((v,i)=>`<div class="doc ${v?'has':'miss'}" title="${LBL[i]}">${LBL[i].slice(0,3)}</div>`).join('')}</div></td>
-    <td style="color:var(--ink3);font-size:12px">${c.last}</td>
-    <td><span class="pill ${P[c.s]}"><i class="dot"></i>${c.txt}</span></td>
-   </tr>`).join('');
-}
-draw();
-
-const SEED=[
- {i:"got",c:"Highveld Security",t:"uploaded VAT records — file complete",m:"08:12"},
- {i:"esc",c:"Zanele Hair & Beauty",t:"3rd reminder ignored, moved to your call list",m:"07:47"},
- {i:"wa",c:"Mabaso & Sons",t:"replied on WhatsApp: “bookkeeper is on leave till Mon”",m:"07:41"},
- {i:"mail",c:"Naledi Trading",t:"reminder 2 sent (bank statements, invoices)",m:"07:30"},
- {i:"mail",c:"14 clients",t:"morning batch went out",m:"07:30"},
-];
-const IC={mail:"✉",wa:"💬",esc:"⚠",got:"✓"};
-function feed(list){
-  document.getElementById('feed').innerHTML=list.map(e=>`
-   <div class="ev"><div class="ic ${e.i}">${IC[e.i]}</div>
-    <div class="tx"><b>${e.c}</b> ${e.t}<div class="tm">${e.m} · today</div></div></div>`).join('');
-}
-feed(SEED);
-
-// "Run today's chase" — shows what the automation does each morning
-document.getElementById('run').addEventListener('click',function(){
-  const b=this; b.disabled=true; b.textContent="Running…";
-  const steps=[
-   {i:"mail",c:"K. Mothibe Plumbing",t:"reminder 2 sent, still nothing on file",m:"now"},
-   {i:"wa",c:"Bo-Kaap Bakery",t:"WhatsApp sent, payroll still missing",m:"now"},
-   {i:"esc",c:"Molefe Transport",t:"no reply in 11 days, escalated to you",m:"now"},
-   {i:"mail",c:"Lerato Ndlovu Consulting",t:"reminder 2 sent (VAT records)",m:"now"},
-  ];
-  let n=0, cur=SEED.slice();
-  const iv=setInterval(()=>{
-    cur.unshift(steps[n]); feed(cur);
-    const s=document.getElementById('sent'); s.textContent=(983+n+1).toLocaleString();
-    if(++n>=steps.length){clearInterval(iv); b.textContent="Done — 4 actions";
-      setTimeout(()=>{b.disabled=false;b.textContent="Run today's chase"},2600);}
-  },850);
-});
-
-// Rolls to whichever SARS provisional deadline is next: 31 Aug, then 28/29 Feb.
-// The previous version counted to a single fixed date and read "in 0 days left"
-// from 1 September onward, on a page being shown to accountants.
+// Rolls to whichever SARS provisional deadline is next: 31 August, then end February.
+// The previous version counted to one fixed date and read "in 0 days left" from
+// 1 September onward, on a page being shown to accountants.
 (function(){
-  const now = new Date();
-  function feb(y){ const leap=(y%4===0&&y%100!==0)||y%400===0; return new Date(y+"-02-"+(leap?29:28)+"T23:59:59+02:00"); }
-  const marks = [new Date(now.getFullYear()+"-08-31T23:59:59+02:00"), feb(now.getFullYear()+1)];
-  const next = marks.find(d => d > now) || feb(now.getFullYear()+1);
-  const days = Math.ceil((next - now)/864e5);
-  const name = next.getMonth()===7 ? "first provisional, 31 August" : "second provisional, end February";
-  document.getElementById('cdlabel').textContent = name;
-  document.getElementById('days').textContent = days + (days===1 ? " day away" : " days away");
+  var now = new Date();
+  function endFeb(y){ var leap=(y%4===0&&y%100!==0)||y%400===0;
+    return new Date(y+"-02-"+(leap?29:28)+"T23:59:59+02:00"); }
+  var y = now.getFullYear();
+  var marks = [endFeb(y), new Date(y+"-08-31T23:59:59+02:00"), endFeb(y+1)];
+  var next = marks.filter(function(d){return d>now;})[0] || endFeb(y+1);
+  var days = Math.ceil((next-now)/864e5);
+  document.getElementById('dl').textContent = days + (days===1 ? " day away" : " days away");
+  document.getElementById('dlname').textContent =
+    next.getMonth()===7 ? "first provisional · 31 August" : "second provisional · end February";
+})();
+
+// The button demonstrates the one thing the page claims: reminders go out without typing.
+(function(){
+  var btn=document.getElementById('run'), feed=document.getElementById('feed');
+  btn.addEventListener('click', function(){
+    btn.disabled=true; btn.textContent='Sending…';
+    setTimeout(function(){
+      var ev=document.createElement('div');
+      ev.className='ev';
+      ev.innerHTML='<div class="ic c">→</div><p>Chase run: <b>56 reminders</b> queued to the '+
+                   '39 partial and 17 outstanding files.<time>just now</time></p>';
+      feed.insertBefore(ev, feed.firstChild);
+      btn.textContent='Chase sent'; 
+    }, 700);
+  });
 })();
 </script>
 </body>
