@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>@Home BnB — Guest House in Ha Makhoathi, Maseru, Lesotho</title>
+<meta name="robots" content="noindex,nofollow"><!-- demo preview — remove on client go-live -->
+<meta name="description" content="@Home BnB — comfortable guest house accommodation in Ha Makhoathi, Maseru. Book directly via WhatsApp — no booking fees.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%23b45309'/><text x='50' y='72' font-size='58' font-weight='bold' text-anchor='middle' fill='white' font-family='serif'>@</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ac:#b45309;--acd:#78350f;--cream:#faf8f3;--cream2:#f1ede3;--ink:#26241f;--ink2:#5c584e;--line:#e5e0d2;--r:14px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+.w{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+h1,h2,h3{font-family:'Fraunces',serif}
+.preview-bar{background:var(--acd);color:#fff;text-align:center;font-size:11.5px;padding:7px 14px;letter-spacing:.04em}
+.preview-bar a{color:#fff;font-weight:700;text-decoration:underline}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,243,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nb{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px);height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
+.logo-m{width:32px;height:32px;border-radius:9px;background:var(--ac);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:700;font-size:15px}
+.logo-t{font-family:'Fraunces',serif;font-weight:600;font-size:15px}
+.ncta{background:var(--ac);color:#fff;font-weight:700;font-size:13px;padding:9px 16px;border-radius:9px;text-decoration:none}
+.ncta:hover{background:var(--acd)}
+.hero{position:relative;min-height:72vh;display:grid;place-items:center;text-align:center;color:#fff;background:linear-gradient(rgba(20,24,20,.45),rgba(20,24,20,.6)),url('https://www.visitlesotho.org.ls/wp-content/uploads/2025/06/@home1-1024x768.jpg') center/cover}
+.hero-in{position:relative;z-index:2;max-width:680px;padding:80px 20px}
+.hero-kick{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:7px 16px;margin-bottom:22px}
+.hero h1{font-size:clamp(34px,6vw,58px);font-weight:600;line-height:1.1;margin-bottom:14px;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{font-size:clamp(14px,1.6vw,17px);color:#f2efe6;max-width:520px;margin:0 auto 30px;line-height:1.75;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:11px;font-weight:700;font-size:14.5px;text-decoration:none;transition:.25s;border:none;cursor:pointer;font-family:'Inter'}
+.btn-wa{background:#25d366;color:#fff}
+.btn-wa:hover{background:#1fb457;transform:translateY(-2px)}
+.btn-ghost{color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+section{padding:clamp(52px,9vh,84px) 0}
+.kick{font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.tit{font-size:clamp(26px,3.6vw,38px);font-weight:600;line-height:1.14;margin-bottom:12px;color:var(--acd)}
+.dsc{font-size:14.5px;color:var(--ink2);max-width:560px;line-height:1.8}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(26px,4vw,54px);align-items:center}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}
+.wf{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:500}
+.wf i{font-style:normal;color:var(--ac)}
+.about-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:0 14px 40px rgba(40,36,26,.07)}
+.about-card h3{color:var(--acd);font-size:18px;margin-bottom:12px}
+.ar{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.ar:last-child{border:none}
+.ar .k{color:var(--ink2)}.ar .v{font-weight:600;text-align:right}
+.rooms-bg{background:var(--cream2)}
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.room{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:.3s}
+.room:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(40,36,26,.1)}
+.room h3{font-size:17px;color:var(--acd);margin-bottom:6px}
+.room p{font-size:12.5px;color:var(--ink2);line-height:1.65;margin-bottom:14px}
+.price{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--acd)}
+.price small{font-family:'Inter';font-size:10.5px;font-weight:500;color:var(--ink2);display:block}
+.note{margin-top:18px;font-size:12px;color:var(--ink2);text-align:center}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:180px;gap:10px}
+.gph{border-radius:10px;overflow:hidden}
+.gph img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.gph:hover img{transform:scale(1.05)}
+.direct{background:var(--acd);color:#fff;border-radius:18px;padding:clamp(28px,4vw,44px);display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
+.direct h2{font-size:clamp(22px,3vw,30px);margin-bottom:10px}
+.direct p{font-size:13.5px;color:#e8e4d8;line-height:1.75}
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,50px);align-items:start}
+.bk-contacts{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.bk-contacts a{color:var(--acd);font-weight:600;font-size:14px;text-decoration:none}
+.bform{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,3vw,28px);box-shadow:0 16px 44px rgba(40,36,26,.09)}
+.bform h3{font-size:18px;color:var(--acd);margin-bottom:4px}
+.bform>p{font-size:12px;color:var(--ink2);margin-bottom:14px}
+.bform label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:10px 0 4px}
+.bform input,.bform select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;font-family:'Inter';font-size:13.5px;background:var(--cream);outline:none;color:var(--ink)}
+.bform input:focus,.bform select:focus{border-color:var(--ac)}
+.brow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bform .btn{width:100%;justify-content:center;margin-top:14px}
+.map-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);height:320px;margin-top:34px}
+.map-wrap iframe{width:100%;height:100%;border:0}
+footer{background:var(--acd);color:#d8d4c8;padding:26px 0;text-align:center;font-size:12px;margin-top:40px}
+footer a{color:#fff;font-weight:600;text-decoration:none}
+.wa-f{position:fixed;bottom:20px;right:20px;width:52px;height:52px;background:#25d366;border-radius:50%;display:grid;place-items:center;z-index:99;box-shadow:0 6px 18px rgba(37,211,102,.4);font-size:24px;text-decoration:none;transition:.25s}
+.wa-f:hover{transform:scale(1.1)}
+@media(max-width:860px){.about-grid,.book-grid,.direct{grid-template-columns:1fr}.rooms,.gal{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.rooms,.gal{grid-template-columns:1fr}.gal{grid-auto-rows:200px}}
+</style>
+</head>
+<body>
+<div class="preview-bar">FREE PREVIEW built for @Home BnB by <a href="https://mendgroup.co.za">MEND GROUP</a> — your photos, rooms &amp; prices will replace the placeholders</div>
+<nav><div class="nb">
+  <a href="#" class="logo"><div class="logo-m">@</div><div class="logo-t">@Home BnB</div></a>
+  <a href="#book" class="ncta">Book Direct</a>
+</div></nav>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="hero-kick">Ha Makhoathi · Maseru · Lesotho</div>
+    <h1>Feel at home on the Thaba-Bosiu road</h1>
+    <p>A warm garden B&B in Ha Makhoathi — five rooms, a famous full breakfast, and space for the whole group. On the tourist route to Thaba Bosiu.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="#book" class="btn btn-wa">💬 Book Direct on WhatsApp</a>
+      <a href="#rooms" class="btn btn-ghost">Rooms &amp; Rates</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="w about-grid">
+    <div>
+      <div class="kick">Welcome</div>
+      <h2 class="tit">The group-stay favourite</h2>
+      <p class="dsc">@Home BnB hosts up to 10 guests in five comfortable rooms with air-conditioning, balconies and garden views. Guests rave about the buffet breakfast (vegan and gluten-free options included) and the hosting — it's a favourite for groups in town for Roof of Africa, festivals and family gatherings. Secure parking, fast Wi-Fi and a braai garden included.</p>
+      <div class="feats"><div class="wf"><i>✔</i> Full buffet breakfast</div><div class="wf"><i>✔</i> Sleeps groups up to 10</div><div class="wf"><i>✔</i> Air-con &amp; heating</div><div class="wf"><i>✔</i> Fast free Wi-Fi</div><div class="wf"><i>✔</i> Braai &amp; picnic garden</div><div class="wf"><i>✔</i> Secure parking + guard</div></div>
+    </div>
+    <div class="about-card">
+      <h3>At a glance</h3>
+      <div class="ar"><span class="k">Location</span><span class="v">Ha Makhoathi, Maseru</span></div>
+      <div class="ar"><span class="k">Phone</span><span class="v">+266 5884 5022</span></div>
+      <div class="ar"><span class="k">Email</span><span class="v">homebnb2019@gmail.com</span></div>
+      <div class="ar"><span class="k">Booking</span><span class="v">WhatsApp · Direct · Free</span></div>
+      <div class="ar"><span class="k">Guest rating</span><span class="v">7.7 / 10 — &quot;Good&quot; on booking sites</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rooms" class="rooms-bg">
+  <div class="w">
+    <div class="kick">Rooms &amp; Rates</div>
+    <h2 class="tit">Comfortable rooms, honest prices</h2>
+    <div class="rooms" style="margin-top:28px"><div class="room"><h3>Double Room</h3><p>Cosy en-suite double with balcony, garden view, TV and kitchenette corner.</p><div class="price">±M650<small>per night — placeholder, set your rate</small></div></div><div class="room"><h3>Family Room</h3><p>Extra space for families — private bathroom, aircon, fridge.</p><div class="price">±M850<small>per night — placeholder, set your rate</small></div></div><div class="room"><h3>Whole-House Group Stay</h3><p>Book all five rooms for your team, festival group or family reunion.</p><div class="price">Ask us<small>group packages</small></div></div></div>
+    <p class="note">💡 Book directly with us — no booking-site fees, best price guaranteed, breakfast options available.</p>
+  </div>
+</section>
+
+<section id="gallery" style="padding-top:0"><div class="w"><div class="kick">Gallery</div><h2 class="tit">See the house</h2><div class="gal" style="margin-top:24px"><div class="gph"><img src="https://www.visitlesotho.org.ls/wp-content/uploads/2025/06/@home2-1024x768.jpg" alt="@Home BnB" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div><div class="gph"><img src="https://cdn.worldota.net/t/640x400/content/d1/85/d18517a9b4c0e2125aa0c56bfd027044c8cdcc8d.jpeg" alt="@Home BnB" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div><div class="gph"><img src="https://cdn.worldota.net/t/640x400/content/82/28/8228017ed7cf77ac802f17f587755ec13423bb85.jpeg" alt="@Home BnB" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div></div></div></section>
+
+<section>
+  <div class="w"><div class="direct">
+    <div>
+      <h2>Why book direct?</h2>
+      <p>Booking sites charge guest houses up to 15% commission on every stay — costs that end up in your room price. Book directly with @Home BnB on WhatsApp: same room, better price, and you talk to a real person who knows the house.</p>
+    </div>
+    <div style="text-align:center"><a href="https://wa.me/26658845022?text=Lumela!%20I%27d%20like%20to%20enquire%20about%20a%20booking%20at%20@Home%20BnB." target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp @Home</a></div>
+  </div></div>
+</section>
+
+<section id="book" style="padding-top:0">
+  <div class="w book-grid">
+    <div>
+      <div class="kick">Book Direct</div>
+      <h2 class="tit">Request a booking in 30 seconds</h2>
+      <p class="dsc">Fill in your dates — your request opens in WhatsApp, already written. We confirm availability the same day.</p>
+      <div class="bk-contacts">
+        <a href="tel:+26658845022">📞 +266 5884 5022</a>
+        <a href="mailto:homebnb2019@gmail.com">✉ homebnb2019@gmail.com</a>
+      </div>
+    </div>
+    <form class="bform" onsubmit="return waBook(event)">
+      <h3>Booking request</h3>
+      <p>No payment needed now</p>
+      <label>Your name</label><input type="text" id="bk-name" placeholder="Name &amp; surname" required>
+      <div class="brow">
+        <div><label>Check-in</label><input type="date" id="bk-in" required></div>
+        <div><label>Check-out</label><input type="date" id="bk-out" required></div>
+      </div>
+      <div class="brow">
+        <div><label>Guests</label><select id="bk-guests"><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
+        <div><label>Rooms</label><select id="bk-rooms"><option>1</option><option>2</option><option>3+</option></select></div>
+      </div>
+      <button type="submit" class="btn btn-wa">💬 Send via WhatsApp</button>
+    </form>
+  </div>
+  <div class="w"><div class="map-wrap"><iframe src="https://www.google.com/maps?q=Home+BnB+Ha+Makhoathi+Thaba+Bosiu+Road+Maseru&output=embed" loading="lazy" title="Map"></iframe></div></div>
+</section>
+
+<a class="wa-f" href="https://wa.me/26658845022?text=Lumela!%20I%27d%20like%20to%20enquire%20about%20a%20booking%20at%20@Home%20BnB." target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<footer><div class="w">© 2026 @Home BnB · Ha Makhoathi, Maseru, Lesotho &nbsp;·&nbsp; Website preview by <a href="https://mendgroup.co.za">MEND GROUP</a> · +27 83 209 2120</div></footer>
+<script>
+function waBook(e){e.preventDefault();
+const n=document.getElementById('bk-name').value.trim(),i=document.getElementById('bk-in').value,o=document.getElementById('bk-out').value,g=document.getElementById('bk-guests').value,r=document.getElementById('bk-rooms').value;
+const m=`Lumela! I'd like to book at @Home BnB.%0A%0A👤 ${encodeURIComponent(n)}%0A📅 ${i} → ${o}%0A👥 Guests: ${g} · Rooms: ${r}%0A%0APlease confirm availability. Kea leboha!`;
+window.open(`https://wa.me/26658845022?text=${m}`,'_blank');return false}
+</script>
+</body>
+</html>
