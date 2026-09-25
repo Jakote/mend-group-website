@@ -1,0 +1,104 @@
+id,lat,lon,kind,name,operator
+0,-29.3146227,27.4937745,atm,,Standard Lesotho Bank Limited
+1,-29.313447,27.481323,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+2,-29.3145208,27.4846883,atm,Nedbank,Nedbank Lesotho Limited
+3,-29.2984307,27.4719841,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+4,-29.3133178,27.4794433,bank,FNB Lesotho,First National Bank of Lesotho Limited
+5,-29.314496,27.4751481,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+6,-29.2995486,27.4571748,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+7,-29.1498804,27.7420325,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+8,-29.4037225,27.5608982,atm,Standard Lesotho Bank,Standard Lesotho Bank Limited
+9,-29.0009946,28.2088348,atm,,Standard Lesotho Bank Limited
+10,-29.3057919,27.515477,atm,,Standard Lesotho Bank;First National Bank of Lesotho Limited
+11,-28.8886019,27.9066173,atm,,Standard Lesotho Bank Limited
+12,-29.1523883,27.7433288,bank,FNB Lesotho,First National Bank of Lesotho Limited
+13,-29.1496854,27.7467539,atm,,Standard Lesotho Bank Limited
+14,-29.1482662,27.7482627,bureau_de_change,GBets,
+15,-29.3678475,27.514819,atm,,Standard Lesotho Bank Limited
+16,-29.3145534,27.4868982,bank,FNB Lesotho,First National Bank of Lesotho Limited
+17,-29.3162259,27.4958122,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+18,-29.3161998,27.495719,atm,,Standard Lesotho Bank Limited
+19,-29.3575305,27.4602189,atm,,Standard Lesotho Bank Limited
+20,-29.8217635,27.2442179,atm,FNB Lesotho,First National Bank of Lesotho Limited
+21,-29.8412423,28.0529654,atm,Standard Lesotho Bank,Standard Lesotho Bank Limited
+22,-29.3150568,27.4994933,atm,,Standard Lesotho Bank Limited
+23,-29.3158879,27.4892808,bank,Boliba Savings and Credit,
+24,-29.3186915,27.4953341,bank,Boliba Savings and Credit,Cooperative
+25,-29.3145366,27.4936147,atm,Nedbank,Nedbank Lesotho Limited
+26,-29.3387869,27.4618431,atm,,Standard Lesotho Bank Limited
+27,-29.3387453,27.4618113,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+28,-29.3123753,27.4955186,atm,,Standard Lesotho Bank Limited
+29,-29.3124236,27.495356,atm,Nedbank,Nedbank Lesotho Limited
+30,-29.3123751,27.4953547,atm,FNB Lesotho,First National Bank of Lesotho Limited
+31,-29.3155817,27.4902773,atm,Nedbank,Nedbank
+32,-29.3155472,27.4898832,atm,FNB Lesotho,First National Bank of Lesotho Limited
+33,-29.3152781,27.4898444,atm,,Standard Bank
+34,-29.314397,27.493603,atm,Lesotho PostBank,Lesotho PostBank Limited
+35,-29.3146623,27.4937661,atm,,Standard Lesotho Bank Limited
+36,-29.3474161,27.4555355,atm,FNB Lesotho,First National Bank of Lesotho Limited
+37,-29.3473363,27.455468,atm,Nedbank,Nedbank Lesotho Limited
+38,-29.3359789,27.4850632,atm,FNB Lesotho,First National Bank of Lesotho Limited
+39,-29.336135,27.4823428,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+40,-29.3689051,27.5367861,atm,,Standard Lesotho Bank Limited
+41,-29.3357672,27.4847911,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+42,-29.3678399,27.51491,atm,FNB Lesotho,First National Bank of Lesotho Limited
+43,-29.3357376,27.4848278,atm,,Standard Lesotho Bank Limited
+44,-29.3157996,27.4974994,atm,FNB Lesotho,First National Bank of Lesotho Limited
+45,-29.3123509,27.4955285,atm,,Standard Lesotho Bank Limited
+46,-29.3123648,27.4953653,atm,FNB Lesotho,First National Bank of Lesotho Limited
+47,-29.3124072,27.4953934,atm,Nedbank,Nedbank Lesotho Limited
+48,-29.3387882,27.4618624,atm,,Standard Lesotho Bank Limited
+49,-29.314191,27.4841202,atm,Lesotho PostBank,Lesotho PostBank Limited
+50,-28.8729644,28.0416199,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+51,-28.8730631,28.0416193,bank,FNB Lesotho,First National Bank of Lesotho Limited
+52,-28.872839,28.0421951,bank,Nedbank,Nedbank Lesotho Limited
+53,-28.872614,28.041848,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+54,-29.5306122,28.2687536,atm,Standard Lesotho Bank,Standard Lesotho Bank Limited
+55,-30.2715201,27.8754142,atm,,Standard Lesotho Bank Limited
+56,-30.1947607,28.14267,atm,,Standard Lesotho Bank Limited
+57,-29.4811615,28.0582711,atm,,Standard Lesotho Bank Limited
+58,-29.5311497,28.2687445,atm,,cont
+59,-29.2968066,27.5379677,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+60,-29.3138878,27.493226,atm,Nedbank,Nedbank
+61,-29.3132327,27.4793644,financial,Letshego,
+62,-29.2671186,27.5809811,atm,,Standard Lesotho Bank Limited
+63,-29.5144162,28.6037882,atm,Standard Lesotho Bank,Standard Lesotho Bank Limited
+64,-29.4045474,27.5620229,atm,,
+65,-29.7557713,27.1098994,atm,,Standard Lesotho Bank Limited
+66,-29.3686941,27.5377756,atm,Standard Lesotho Bank,Standard Lesotho Bank Limited
+67,-29.2883155,29.0643451,atm,FNB Lesotho,First National Bank of Lesotho Limited
+68,-30.1186886,28.6854504,atm,Auto Bank,Standard Lesotho Bank Limited
+69,-30.1191924,28.686439,bank,Lesotho PostBank,Lesotho PostBank Limited
+70,-29.108789,28.4915149,atm,,Standard Lesotho Bank Limited
+71,-29.1480585,27.7490134,atm,,
+72,-29.1484984,27.7482246,atm,,
+73,-29.3475105,27.4567295,atm,,Postbank
+74,-29.3033791,27.4820803,bank,Teba,
+75,-29.8177629,27.2469192,financial,TASIMA Financial Services,
+76,-29.8229318,27.2441177,atm,,Standard Lesotho Bank
+77,-29.8229021,27.2433571,atm,,Nedbank
+78,-29.8237433,27.246565,atm,,Standard Lesotho Bank
+79,-29.5226283,28.6074166,atm,,Postbank ATM
+80,-29.2930254,27.5178114,atm,,FNB
+81,-29.8229424,27.243338,atm,,Nedbank
+82,-29.2071699,28.8707118,atm,,PostBank
+83,-29.2071832,28.8707159,atm,,Nedbank
+84,-30.1190341,28.6863497,atm,,Postbank
+85,-29.3141162,27.4841156,bank,Lesotho PostBank,Lesotho PostBank Limited
+86,-29.3130158,27.4891851,bank,Central Bank of Lesotho,Central Bank of Lesotho
+87,-30.1144079,28.6811475,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+88,-30.1144667,28.6811564,bank,standard lesotho bank,
+89,-28.7627778,28.2486368,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+90,-30.4076625,27.7075953,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+91,-30.4078992,27.7069731,bank,Lesotho PostBank,Lesotho PostBank Limited.
+92,-29.4514038,27.7209036,bank,Nedbank,Nedbank Lesotho Limited
+93,-30.151374,27.4768432,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+94,-29.314574,27.4845048,bank,Nedbank,Nedbank Lesotho Limited
+95,-29.522611,28.6072634,bank,Lesotho PostBank,Lesotho PostBank Limited.
+96,-29.2881674,29.0664861,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+97,-29.5144508,28.6039063,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+98,-29.3144838,27.4828393,bank,Lesotho Highlands Development Authority,Lesotho Highlands Development Authority
+99,-29.3147984,27.483138,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+100,-29.3145681,27.483463,bank,Lesotho Bank Credit Unit,
+101,-29.4513054,27.7208305,bank,Standard Lesotho Bank,Standard Lesotho Bank Limited
+102,-28.9001085,27.9539525,bank,Khomo-Khoana Credit Union,

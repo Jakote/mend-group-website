@@ -18,6 +18,8 @@
   .stat b{font-variant-numeric:tabular-nums}
   .caveat{background:#fff8e6;border:1px solid #f0d47a;border-radius:6px;padding:7px 9px;
     font-size:11px;margin-top:8px;line-height:1.35}
+  .dl{margin-top:8px;font-size:11px;color:#444}
+  .dl a{color:#0a58ca}
   .brand{margin-top:8px;font-size:11px;color:#666}
   .brand a{color:#0a58ca;text-decoration:none}
   .legend{position:absolute;bottom:14px;left:10px;z-index:1000;background:#fff;border-radius:8px;
@@ -56,11 +58,13 @@
   <div class="stat"><span>Median distance to nearest FAP</span><b>17.6 km</b></div>
   <div class="stat"><span>Territory &gt;20 km from any FAP</span><b>41%</b></div>
   <div class="stat"><span>Analysis grid</span><b>1,408 cells ≈5 km</b></div>
+  <div class="stat"><span>Access points nearest to no cell</span><b>54 of 103</b></div>
   <div class="caveat"><b>Data honesty:</b> points are OpenStreetMap community data (fetched live,
   Sept 2026) — banks &amp; ATMs only, known to undercount agents and mobile-money points, sparse in
   highland districts. This demo shows the <i>analysis pipeline</i>: Phase&nbsp;2 Part&nbsp;A field data
   replaces this layer directly and every index recomputes.</div>
   <button class="toggle" onclick="this.parentElement.classList.toggle('expanded');this.textContent=this.parentElement.classList.contains('expanded')?'Hide data notes ▲':'Data notes ▼'">Data notes ▼</button>
+  <div class="dl">Download the underlying data: <a href="data/access-points.csv" download>access points (CSV)</a> &middot; <a href="data/access-grid.csv" download>analysis grid (CSV)</a></div>
   <div class="brand">Built with Leaflet + Python (open source, zero licence cost) by
   <a href="https://mendgroup.co.za">MEND GROUP (PTY) LTD</a> · Lesotho reg. 96070</div>
 </div>
@@ -69,6 +73,7 @@
   <span class="sw" style="background:#1a9850"></span>&le;5 km
   <span class="sw" style="background:#fee08b"></span>5–20 km
   <span class="sw" style="background:#d73027"></span>&gt;20 km<br>
+  <b>Catchments</b>: one colour per nearest access point, categorical only<br>
   <b>Points</b>: <span class="sw" style="background:#0a58ca"></span>bank
   <span class="sw" style="background:#7b3fbf"></span>ATM
   <span class="sw" style="background:#333"></span>other ·
@@ -86,6 +91,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 
 L.geoJSON(BOUNDARY,{style:{color:'#333',weight:2,fill:false,dashArray:'4 3'}}).addTo(map);
 
+/* CATCH[i] is the index into PTS of the access point nearest to GRID[i]. Computed with the
+   same haversine used for the distance column, so the catchment map and the distance map are
+   two views of one calculation. Reproducible from data/access-grid.csv. */
+const CATCH=[90,91,91,90,90,90,90,90,91,91,90,90,90,90,90,90,55,55,91,91,90,90,90,90,90,55,55,55,56,56,91,91,91,90,90,90,90,55,55,55,55,56,91,91,91,90,90,90,90,55,55,55,55,55,56,56,56,91,91,91,91,90,90,90,55,55,55,55,55,56,56,56,56,56,93,91,91,91,90,90,90,55,55,55,55,55,55,56,56,56,56,93,93,93,93,91,91,90,90,55,55,55,55,55,55,56,56,56,56,93,93,93,93,93,93,90,55,55,55,55,55,55,55,56,56,56,56,56,56,56,93,93,93,93,93,93,93,55,55,55,55,55,55,55,56,56,56,56,56,56,56,93,93,93,93,93,93,93,55,55,55,55,55,55,56,56,56,56,56,56,56,56,56,93,93,93,93,93,93,93,93,55,55,55,55,55,55,56,56,56,56,56,56,56,56,56,56,87,87,87,87,87,87,69,93,93,93,93,93,93,93,93,93,93,55,55,55,55,55,56,56,56,56,56,56,56,56,56,56,87,87,87,87,87,87,87,84,84,69,78,93,93,93,93,93,93,93,93,93,93,55,55,55,21,21,21,21,56,56,56,56,56,56,56,87,87,87,87,87,87,87,87,87,84,84,84,69,69,78,78,78,78,93,93,93,93,93,93,93,93,21,21,21,21,21,21,21,21,21,21,21,21,56,56,87,87,87,87,87,87,87,87,87,87,87,84,84,84,69,78,78,78,78,78,78,93,93,93,93,93,93,21,21,21,21,21,21,21,21,21,21,21,21,21,21,87,87,87,87,87,87,87,87,87,87,87,87,84,84,84,84,84,81,78,78,78,78,78,78,78,78,93,93,93,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,87,87,87,87,87,87,87,87,87,87,87,87,84,84,84,84,84,81,81,78,78,78,78,78,78,78,78,78,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,87,87,87,87,87,87,87,87,87,87,87,87,84,84,65,77,75,75,75,75,75,75,75,75,75,75,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,58,58,95,95,79,79,79,79,79,79,87,87,87,87,87,84,84,65,65,75,75,75,75,75,75,75,75,75,92,92,21,21,21,21,21,21,21,21,21,21,21,21,21,58,58,58,58,95,95,79,79,79,79,79,79,79,79,79,79,79,79,96,65,65,65,75,75,75,75,75,75,75,75,92,92,92,92,92,21,21,21,21,21,21,21,21,21,58,58,58,58,58,58,95,95,95,79,79,79,79,79,79,79,79,79,79,67,96,65,65,65,65,65,75,75,75,75,75,75,64,92,92,92,92,92,92,92,21,21,21,21,21,58,58,58,58,58,58,58,58,95,95,95,79,79,79,79,79,79,79,79,79,67,67,96,96,65,65,65,65,65,75,75,75,64,64,64,92,92,92,92,92,92,92,57,57,57,57,57,57,58,58,58,58,58,58,58,95,95,95,79,79,79,79,79,79,79,79,79,67,67,96,96,96,96,65,65,65,65,75,19,64,64,64,64,92,92,92,92,92,92,92,57,57,57,57,57,57,58,58,58,58,58,58,95,95,95,95,79,79,79,79,79,79,79,79,67,67,67,96,96,96,96,96,19,19,19,19,64,64,64,64,92,92,92,92,92,92,57,57,57,57,57,57,58,54,54,54,54,54,63,63,63,95,79,79,79,79,79,79,79,67,67,67,67,96,96,96,96,96,19,8,64,64,64,101,92,92,92,92,92,57,57,57,57,57,57,54,54,54,54,54,54,63,63,63,63,97,97,79,79,79,79,67,67,67,67,67,96,96,96,96,96,19,19,8,64,64,64,101,101,92,92,92,57,57,57,57,57,57,57,54,54,54,54,54,63,63,63,63,63,97,97,97,97,97,67,67,67,67,67,96,96,96,96,96,96,96,19,15,8,64,64,101,101,101,101,92,57,57,57,57,57,57,57,54,54,54,54,54,63,63,63,63,63,97,97,97,83,83,67,67,67,67,67,96,96,96,96,96,96,96,96,37,38,66,66,64,101,101,101,101,101,101,57,57,57,57,57,57,54,54,54,54,54,63,63,63,63,63,63,97,83,83,83,83,67,67,67,67,96,96,96,96,96,96,96,96,45,59,62,62,62,62,101,12,12,12,57,57,57,57,57,57,57,54,54,70,70,70,70,70,70,63,83,83,83,83,83,83,83,67,67,96,96,96,96,96,96,96,96,96,62,62,62,62,12,12,12,12,71,71,57,57,57,57,57,9,70,70,70,70,70,70,70,70,70,83,83,83,83,83,83,83,67,67,96,96,96,96,96,96,96,96,62,62,62,12,12,12,12,71,71,71,71,71,9,9,9,9,9,70,70,70,70,70,70,70,70,82,82,82,82,83,83,83,83,67,96,96,96,96,96,96,96,96,62,7,7,12,13,71,71,71,71,71,9,9,9,9,9,9,70,70,70,70,70,70,70,70,70,82,82,82,82,82,82,82,67,96,96,96,96,96,96,96,7,7,71,71,71,71,71,71,9,9,9,9,9,9,9,70,70,70,70,70,70,70,70,82,82,82,82,82,82,82,82,96,96,96,96,96,96,96,7,7,71,71,71,71,102,102,9,9,9,9,9,9,9,70,70,70,70,70,70,70,70,82,82,82,82,82,82,82,82,96,96,96,96,96,71,71,71,71,102,102,102,102,9,9,9,9,9,9,9,70,70,70,70,70,70,70,70,82,82,82,82,82,82,82,82,96,96,96,71,71,11,11,102,102,102,102,9,9,9,9,9,9,9,70,70,70,70,70,70,70,70,82,82,82,82,82,82,82,82,96,11,11,11,11,102,102,51,52,9,9,9,9,9,9,9,70,70,70,70,70,70,70,82,82,82,82,82,82,82,82,11,11,102,102,51,52,52,9,9,9,9,9,89,70,70,70,70,70,70,70,70,82,82,82,82,82,102,53,52,52,52,89,89,89,89,89,89,89,70,70,70,70,70,70,82,82,82,82,53,52,89,89,89,89,89,89,89,89,89,89,70,70,70,70,82,82,82,89,89,89,89,89,89,89,89,89,89,89,89,89,70,70,70,82,89,89,89,89,89,89,89,89,89,89,89,89,89,89,70,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89];
+
 const gridLayer=L.layerGroup();
 GRID.forEach(([la,lo,d])=>{
   const c=d<=5?'#1a9850':(d<=20?'#fee08b':'#d73027');
@@ -93,6 +103,19 @@ GRID.forEach(([la,lo,d])=>{
     .bindTooltip(d+' km to nearest mapped FAP').addTo(gridLayer);
 });
 gridLayer.addTo(map);
+
+/* Nearest-access-point catchments: a discrete Voronoi assignment on the analysis grid.
+   Off by default, so the default view of this page does not change. Colours cycle and carry
+   no meaning beyond separating neighbours; the point is the shape and size of each service
+   area, and how many access points turn out to serve no ground at all. */
+const CATCH_COLS=['#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#bc80bd','#ccebc5'];
+const catchLayer=L.layerGroup();
+GRID.forEach(([la,lo,d],i)=>{
+  const pi=CATCH[i], p=PTS[pi];
+  const c=CATCH_COLS[pi%CATCH_COLS.length];
+  L.circleMarker([la,lo],{radius:3,color:c,fillColor:c,fillOpacity:.75,opacity:.75,weight:0})
+    .bindTooltip('Nearest: '+((p.operator||p.name||p.kind))+' ('+d+' km)').addTo(catchLayer);
+});
 
 const ptLayer=L.layerGroup();
 PTS.forEach(p=>{
@@ -112,6 +135,7 @@ CAPS.forEach(c=>{
 capLayer.addTo(map);
 
 L.control.layers(null,{'Access-distance grid':gridLayer,
+  'Nearest-point catchments':catchLayer,
   'Financial access points':ptLayer,'District capitals':capLayer},
   {collapsed:window.matchMedia('(max-width:640px)').matches,position:'topleft'}).addTo(map);
 </script>
