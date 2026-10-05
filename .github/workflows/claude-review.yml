@@ -1,0 +1,47 @@
+name: Claude review
+
+# Automatic code review on every PR. Needs ONE repository secret:
+#   CLAUDE_CODE_OAUTH_TOKEN  (run `claude setup-token` locally)  or  ANTHROPIC_API_KEY
+# Without a secret the job is skipped, not failed, so it never blocks a merge by accident.
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HAS_CLAUDE_AUTH: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '' }}
+    steps:
+      - name: Skip when no Claude credential is configured
+        if: env.HAS_CLAUDE_AUTH != 'true'
+        run: echo "::notice::Claude review skipped - add CLAUDE_CODE_OAUTH_TOKEN or ANTHROPIC_API_KEY under Settings > Secrets and variables > Actions."
+      - uses: actions/checkout@v4
+        if: env.HAS_CLAUDE_AUTH == 'true'
+        with:
+          fetch-depth: 0
+      - uses: anthropics/claude-code-action@v1
+        if: env.HAS_CLAUDE_AUTH == 'true'
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review PR #${{ github.event.pull_request.number }} in ${{ github.repository }}.
+            Follow .claude/CLAUDE.md. Use the claims-auditor agent definition in
+            .claude/agents/claims-auditor.md as your checklist for public copy.
+            Report, as inline comments plus one summary comment:
+            - any new public claim the company cannot back (price, date, location,
+              guarantee, response time, team size, client, certification, statistic)
+            - anything that would break a page, the JSON-LD block, or the previews
+            - anything that changes robots.txt, sitemap.xml, phone numbers or wa.me links
+            Mark each finding blocking or nit. Do not approve or merge.
+          claude_args: "--allowedTools Read,Grep,Glob,Bash(gh pr diff:*),Bash(gh pr view:*),mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*)"

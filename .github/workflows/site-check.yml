@@ -1,0 +1,59 @@
+name: Site check
+
+# claims-guard: blocks a PR that brings back a claim MEND GROUP removed, or breaks a page.
+# live: re-runs the same checks against https://mendgroup.co.za after every Pages deploy
+#       and once a day, so a bad deploy or edge cache is caught, not assumed fine.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  claims-guard:
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Serve the site exactly as committed
+        run: |
+          python3 -m http.server 8000 >/dev/null 2>&1 &
+          for i in $(seq 1 20); do curl -sf http://localhost:8000/ >/dev/null && exit 0; sleep 0.5; done
+          echo "local server did not start"; exit 1
+      - name: Run claims and structure checks
+        run: python3 .github/scripts/check_site.py http://localhost:8000
+
+  live:
+    if: >-
+      github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the live site (retries while the CDN catches up)
+        run: |
+          for attempt in 1 2 3 4; do
+            if python3 .github/scripts/check_site.py https://mendgroup.co.za; then exit 0; fi
+            echo "attempt $attempt failed; waiting for the edge cache"; sleep 120
+          done
+          exit 1
+      - name: Portfolio demo links resolve (warning only - external hosts)
+        continue-on-error: true
+        run: |
+          fail=0
+          for u in 0585b 1a00d 33904 a6cc d9356; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 30 "https://web-production-$u.up.railway.app")
+            echo "$u $code"; [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
