@@ -96,7 +96,7 @@ if (contactForm) {
       });
 
       if (response.ok) {
-        status.textContent = 'Message sent successfully! We\'ll get back to you within 24 hours.';
+        status.textContent = 'Message sent successfully! We\'ll get back to you as soon as we can.';
         status.className = 'form-status success';
         contactForm.reset();
       } else {
