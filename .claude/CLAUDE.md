@@ -32,8 +32,8 @@ python3 .github/scripts/check_site.py http://localhost:8000
 ```
 CI runs the same script (`Site check / claims-guard`) on every PR and against the live site
 after each Pages deploy. `Claude review` also reviews every non-draft PR, using the
-`CLAUDE_CODE_OAUTH_TOKEN` repository secret. If a check is wrong rather than the page, change the check in the
-same PR and say why in the description.
+`CLAUDE_CODE_OAUTH_TOKEN` repository secret. If a check is wrong rather than the page,
+change the check in the same PR and say why in the description.
 
 ## Git
 Branch from `main`, one concern per PR, squash merge. Commit messages say what changed and why.
