@@ -1,12 +1,14 @@
 name: Claude review
 
-# Automatic code review on every PR. Needs ONE repository secret:
+# Opt-in code review: runs only on non-draft PRs labelled `needs-review`
+# (add the label to request a review; pushes to a labelled PR re-review it).
+# Needs ONE repository secret:
 #   CLAUDE_CODE_OAUTH_TOKEN  (run `claude setup-token` locally)  or  ANTHROPIC_API_KEY
 # Without a secret the job is skipped, not failed, so it never blocks a merge by accident.
 
 on:
   pull_request:
-    types: [opened, synchronize, ready_for_review, reopened]
+    types: [opened, synchronize, ready_for_review, reopened, labeled]
 
 permissions:
   contents: read
@@ -16,9 +18,16 @@ permissions:
 
 jobs:
   review:
-    if: github.event.pull_request.draft == false
+    if: >-
+      github.event.pull_request.draft == false &&
+      contains(github.event.pull_request.labels.*.name, 'needs-review') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'needs-review')
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Job-level, so a skipped run (another label added) never cancels a live review.
+    concurrency:
+      group: claude-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     env:
       HAS_CLAUDE_AUTH: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '' }}
     steps:
