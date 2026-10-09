@@ -5,6 +5,12 @@ Usage: check_site.py [BASE_URL]   (default http://localhost:8000)
 
 Every check here guards a claim MEND GROUP removed because it could not
 back it. A failure means a removed claim came back, or a page broke.
+
+Checks K and L were cut before the MEN-33 CEO rulings landed. K now fires only
+on a caption sitting next to a figure, because "Ask us / per night" carries no
+figure to caption. L no longer lists "Roof of Africa", "newly built",
+"rider-friendly stop:" or "Chalet": the provenance register sources all four
+first-party, and guarding them forced the pages to delete true facts.
 Stdlib only: no dependencies, no build step.
 """
 import json
@@ -12,15 +18,16 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from pathlib import Path
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000").rstrip("/")
 
-HOSPITALITY = [
-    "khali-hotel", "at-home-bnb", "cyaara-guest-house", "lakeview-guest-house",
-    "lindys-guesthouse", "mohahlaula-boutique", "mohalalitoe-bnb",
-    "molimo-nthuse-lodge", "morning-star-lodge", "onesi-guest-house", "rio-guest-house",
-]
-PREVIEWS = HOSPITALITY + ["lesotho-fap"]
+# Read the preview list off disk so taking one page down is `git rm -r
+# previews/<slug>` and nothing else. Check P below is what still catches an
+# accidental mass deletion.
+PREVIEW_DIR = Path(__file__).resolve().parents[2] / "previews"
+PREVIEWS = sorted(d.name for d in PREVIEW_DIR.iterdir() if d.is_dir())
+HOSPITALITY = [p for p in PREVIEWS if p != "lesotho-fap"]
 NOTE = "Built by MEND GROUP as a demonstration. Not commissioned by this business."
 
 failures = []
@@ -45,6 +52,8 @@ def absent(name, text, pattern, flags=re.I):
     hits = re.findall(pattern, text, flags)
     check(name, not hits, f"found {len(hits)}: {sorted(set(hits))[:5]}")
 
+
+check("P  preview count floor", len(PREVIEWS) >= 8, f"{len(PREVIEWS)} dirs in previews/")
 
 status, home = fetch("/")
 check("homepage 200", status == 200, str(status))
@@ -89,12 +98,15 @@ for p in PREVIEWS:
     if p in HOSPITALITY:
         absent(f"J  {p} no invented promises", page,
                r"best price guaranteed|better price|availability the same day")
-        absent(f"K  {p} every rate captioned", page, r"<small>per (?:night|person)</small>", 0)
+        absent(f"K  {p} every rate captioned", page, r"\d<small>per (?:night|person)</small>", 0)
         absent(f"L  {p} no unsourced claims", page,
-               r"only lake view|no one else in Maseru|Seventeen years|over 17 years|500 m from|2\.6 km from|"
-               r"since 1975|Est\. 1975|rider-friendly stop:|Roof of Africa|newly built|A3 Mountain Road|"
-               r"nine fully furnished|3\.4 km|up to 10 guests|famous full breakfast|Chalet|"
-               r"conference room with projector|Thaba-Bosiu road")
+               r"only lake view|no one else in Maseru|Seventeen years|over 17 years|Seventeen rooms|"
+               r"500 m from|2\.6 km from|since 1975|Est\. 1975|September 2019|A3 Mountain Road|"
+               r"nine fully furnished|3\.4 km|15 km from the airport|up to 10 guests|famous full breakfast|"
+               r"conference room with projector|Thaba-Bosiu road|Five en-suite|Free private parking|"
+               r"Hillsview|Pioneer Mall|Fitness centre|border transfers|Camping|from R250|10 / 10|"
+               r"07:00|car hire|indicative, confirm|garden-view|Basotho \+ international|"
+               r"traditional Basotho and international")
         check(f"O  {p} not-commissioned line", page.count(NOTE) == 1)
         check(f"O  {p} preview bar kept", page.count("FREE PREVIEW built for") == 1)
     else:
