@@ -40,6 +40,9 @@ def fetch(path):
             return r.status, r.read().decode("utf-8", "replace")
     except urllib.error.HTTPError as e:
         return e.code, ""
+    except (urllib.error.URLError, OSError) as e:
+        # Unreachable, refused, timed out: report it as a failed check, not a traceback.
+        return 0, f"<unreachable: {e}>"
 
 
 def check(name, ok, detail=""):
@@ -57,33 +60,60 @@ check("P  preview count floor", len(PREVIEWS) >= 8, f"{len(PREVIEWS)} dirs in pr
 
 status, home = fetch("/")
 check("homepage 200", status == 200, str(status))
-_, chase = fetch("/document-chase/")
-_, robots = fetch("/robots.txt")
-_, sitemap = fetch("/sitemap.xml")
+# A missing page returns "", and every absent() check on "" passes, so a page that
+# 404s would otherwise satisfy all of its claim checks. Require each one to load.
+status, chase = fetch("/document-chase/")
+check("document-chase 200", status == 200, str(status))
+status, robots = fetch("/robots.txt")
+check("robots.txt 200", status == 200, str(status))
+status, sitemap = fetch("/sitemap.xml")
+check("sitemap.xml 200", status == 200, str(status))
+PUBLIC = {"homepage": home, "document-chase": chase}
 
 # Homepage and document-chase
 absent("A  no withdrawn price / lead time", chase, r"R5,000|7 to 10 days")
-absent("B  no free quote / 24h promise", home, r"Free Quote|24hr|within 24 hours")
+for page_name, text in PUBLIC.items():
+    absent(f"B  {page_name}: no free quote / 24h promise", text,
+           r"Free Quote|24hr|within 24 hours")
 absent("C  no undeliverable services", home,
        r"Satellite|VoIP|tax consultancy|natural sciences|industrial equipment|telecommunication")
 absent("D  no team/bench claims", home, r"specialists per project|promote from within")
 absent("E  no published TIN", home, r"\b\d{9}-\d\b|taxID")
-absent("G  no SA presence / regional claims", home,
-       r"Johannesburg|Gauteng|SACU|dual presence|regional coverage|regional fluency|industrial systems|hero-stats")
+for page_name, text in PUBLIC.items():
+    absent(f"G  {page_name}: no SA presence / regional claims", text,
+           r"Johannesburg|Gauteng|SACU|dual presence|regional coverage|regional fluency|"
+           r"industrial systems|hero-stats")
 pillars = re.findall(r'pillar-num">(\d+)', home)
 check("G  mission pillars numbered 01..n", pillars == [f"{i:02d}" for i in range(1, len(pillars) + 1)], str(pillars))
-check("F  no public link to a preview",
-      not [h for h in re.findall(r'href="([^"]*)"', home) if "previews/" in h])
+for page_name, text in PUBLIC.items():
+    check(f"F  {page_name}: no public link to a preview",
+          not [h for h in re.findall(r"""href=["']([^"']*)["']""", text) if "previews/" in h])
 check("F2 proof sentence present", "ask us to show you one" in home)
+
+def _as_list(v):
+    return v if isinstance(v, list) else ([] if v is None else [v])
+
+
+def _place_name(v):
+    return v.get("name") if isinstance(v, dict) else v
+
 
 m = re.search(r'application/ld\+json"?\s*>(.*?)</script>', home, re.S)
 try:
     ld = json.loads(m.group(1)) if m else None
     check("G3 JSON-LD parses", ld is not None, "no ld+json block")
-    if ld:
-        check("G3 areaServed is Lesotho only", ld.get("areaServed") == ["Lesotho"], str(ld.get("areaServed")))
+    # Accept a single object, a top-level array, or an @graph, and find the node that
+    # carries areaServed, instead of crashing or passing on an unexpected shape.
+    nodes = _as_list(ld.get("@graph", ld)) if isinstance(ld, dict) else _as_list(ld)
+    org = next((n for n in nodes if isinstance(n, dict) and "areaServed" in n), None)
+    if ld is not None:
+        check("G3 JSON-LD has an areaServed node", org is not None)
+    if org:
+        areas = [_place_name(a) for a in _as_list(org.get("areaServed"))]
+        check("G3 areaServed is Lesotho only", areas == ["Lesotho"], str(areas))
+        services = [str(s) for s in _as_list(org.get("serviceType"))]
         check("G3 serviceType has no telecoms",
-              not any("telecom" in s.lower() for s in ld.get("serviceType", [])))
+              not any("telecom" in s.lower() for s in services), str(services))
 except ValueError as e:
     check("G3 JSON-LD parses", False, str(e))
 
