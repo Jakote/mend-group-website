@@ -34,11 +34,14 @@ jobs:
       - name: Skip when no Claude credential is configured
         if: env.HAS_CLAUDE_AUTH != 'true'
         run: echo "::notice::Claude review skipped - add CLAUDE_CODE_OAUTH_TOKEN or ANTHROPIC_API_KEY under Settings > Secrets and variables > Actions."
-      - uses: actions/checkout@v4
+      # Pinned to commit SHAs: these steps hold the Claude token, so a moved tag must not
+      # be able to swap in new code. Bump deliberately.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
         if: env.HAS_CLAUDE_AUTH == 'true'
         with:
-          fetch-depth: 0
-      - uses: anthropics/claude-code-action@v1
+          # Do not leave the GitHub token in .git/config where a prompted read could reach it.
+          persist-credentials: false
+      - uses: anthropics/claude-code-action@1d6de8cb0c237e7c15e9e1bdf973826ebae490cc  # v1
         if: env.HAS_CLAUDE_AUTH == 'true'
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
