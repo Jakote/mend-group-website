@@ -144,6 +144,46 @@ for p in PREVIEWS:
         absent(f"M  {p} no phase numbering", page, r"Phase", 0)
         check(f"M  {p} data honesty intact", "Data honesty" in page and "undercount" in page.lower())
 
+
+# ---------------------------------------------------------------------------
+# Demonstration prototypes under /demo/<slug>/.
+# These are evaluator-facing demos, NOT hospitality previews: they do not live in
+# previews/, so checks H and I to O above never see them. Without the block below a
+# demo could lose its noindex or its "not a UNICEF product" line and this script would
+# still print "all checks passed". X is the check that matters most: a parenting demo
+# that stops announcing itself as a demo starts looking like a service for at-risk
+# families, which is exactly what it must never look like.
+DEMO_DIR = Path(__file__).resolve().parents[2] / "demo"
+DEMOS = sorted(d.name for d in DEMO_DIR.iterdir() if d.is_dir()) if DEMO_DIR.is_dir() else []
+DEMO_NOTE = "not a UNICEF product"
+
+check("Q  demo count floor", len(DEMOS) >= 1, f"{len(DEMOS)} dirs in demo/")
+
+# Fetched here rather than reusing earlier locals: main and the check-site-robustness
+# branch name these differently, and this block has to pass on either.
+_, _sitemap = fetch("/sitemap.xml")
+check("Q2 sitemap lists no demos", "/demo/" not in _sitemap)
+for _name, _path in (("homepage", "/"), ("document-chase", "/document-chase/")):
+    _, _text = fetch(_path)
+    check(f"Q3 {_name}: no public link to a demo",
+          not [h for h in re.findall(r"""href=["']([^"']*)["']""", _text)
+               if h.startswith("/demo/") or h.startswith("demo/")])
+
+for d in DEMOS:
+    for leaf in ("", "content.html"):
+        status, page = fetch(f"/demo/{d}/{leaf}")
+        label = f"{d}/{leaf or 'index'}"
+        check(f"R  {label} reachable", status == 200, str(status))
+        check(f"S  {label} noindex", bool(re.search(r'name="robots"[^>]*noindex', page, re.I)))
+        check(f"X  {label} says not a UNICEF product", DEMO_NOTE in page)
+        check(f"Y  {label} entry gate present", 'id="demo-gate"' in page)
+        check(f"Z  {label} gate carries 112 and 116", "112" in page and "116" in page)
+        # The lookbehind matters: the gate's own text says "not endorsed by any ministry
+        # or agency", and a bare /endorsed by/ would flag that denial as a claim.
+        absent(f"Z2 {label} no borrowed authority", page,
+               r"(?<!not )endorsed by|in partnership with|on behalf of UNICEF|"
+               r"official[^.]{0,20}UNICEF")
+
 print()
 if failures:
     print(f"{len(failures)} check(s) failed")

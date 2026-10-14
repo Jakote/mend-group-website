@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>Parent Helper - demonstration prototype (MEND GROUP)</title>
+<link rel="stylesheet" href="app.css">
+<style>
+/* demo entry gate - visible by default; JS removes it on acknowledgement. If JS fails,
+   the gate stays up and the demo stays unreachable. That is deliberate. */
+#demo-gate{position:fixed;inset:0;z-index:9999;background:#11170f;color:#f1f1f1;
+  overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:16px}
+#demo-gate .demo-gate-card{max-width:30rem;font-size:15px;line-height:1.5}
+#demo-gate h2{margin:0 0 .6em;font-size:19px;line-height:1.3}
+#demo-gate p{margin:0 0 .8em}
+#demo-gate .demo-gate-help{background:#5b1b1b;padding:10px 12px;border-radius:6px}
+#demo-gate button{width:100%;min-height:48px;margin-top:.4em;font-size:15px;
+  background:#1f5f4a;color:#fff;border:0;border-radius:6px;cursor:pointer}
+#demo-gate button:focus-visible{outline:3px solid #9fd8ff;outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="demo-gate" role="dialog" aria-modal="true" aria-labelledby="demo-gate-h">
+  <div class="demo-gate-card">
+    <h2 id="demo-gate-h">This is a demonstration, not a support service</h2>
+    <p><strong>Parent Helper</strong> is a prototype built by MEND GROUP (PTY) LTD to show a
+    design in a proposal. It is <strong>not a UNICEF product</strong>, it is not endorsed by any
+    ministry or agency, and its advice has <strong>not been reviewed</strong> by a
+    child-protection specialist.</p>
+    <p>Nothing you type is sent anywhere, stored, or read by a person.
+    <strong>No one is monitoring this page.</strong></p>
+    <p class="demo-gate-help">If a child is in danger right now, call <strong>112</strong>
+    (national emergency) or <strong>116</strong> (Child Helpline Lesotho). Those numbers are
+    free, real, and answered by people. This page is not.</p>
+    <button type="button" id="demo-gate-ok">I understand &mdash; show the demonstration</button>
+  </div>
+</div>
+<script>
+(function () {
+  var g = document.getElementById('demo-gate'), b = document.getElementById('demo-gate-ok');
+  if (!g || !b) return;
+  b.addEventListener('click', function () { g.parentNode.removeChild(g); });
+  b.focus();
+})();
+</script>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="avatar" aria-hidden="true">PH</div>
+    <div class="who">
+      <h1 id="appName">Parent Helper</h1>
+      <p id="appStatus">demo - works offline</p>
+    </div>
+    <button type="button" class="lang" id="langBtn" aria-label="Switch language">Sesotho</button>
+  </header>
+  <button type="button" class="helpnow" id="helpNowBtn">Get help now</button>
+
+  <main class="chat" id="chat" aria-live="polite" aria-label="Conversation"></main>
+
+  <div class="replies" id="replies" aria-label="Quick replies"></div>
+
+  <form class="composer" id="composer" autocomplete="off">
+    <label for="msg" class="sr">Message</label>
+    <input id="msg" name="msg" type="text" placeholder="Type a message..." maxlength="300">
+    <button type="submit" id="sendBtn">Send</button>
+  </form>
+
+  <footer class="demo-banner" role="note">Demonstration prototype by MEND GROUP (PTY) LTD for evaluation purposes - not a UNICEF product. <a href="content.html">Content view</a></footer>
+</div>
+
+<div class="safety" id="safety" role="alertdialog" aria-modal="true" aria-labelledby="safetyTitle" hidden>
+  <div class="safety-inner">
+    <h2 id="safetyTitle"></h2>
+    <p id="safetyBody"></p>
+    <p class="safety-en" id="safetyBodyEn" hidden></p>
+    <p class="draft-tag" id="safetyDraft" hidden></p>
+    <ul class="contacts" id="safetyContacts"></ul>
+    <p class="privacy" id="safetyPrivacy"></p>
+    <button type="button" class="back" id="safetyBack"></button>
+  </div>
+  <p class="demo-banner inline">Demonstration prototype by MEND GROUP (PTY) LTD for evaluation purposes - not a UNICEF product</p>
+</div>
+<noscript><p class="noscript">This prototype needs JavaScript. If a child is in danger in Lesotho, call the Child Helpline on 116 (free, 24h) or the National Emergency Line on 112.</p></noscript>
+<script src="loader.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

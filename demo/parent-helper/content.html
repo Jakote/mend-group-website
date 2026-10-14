@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>Content view (read-only) - Parent Helper demo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.45;color:#1c2320;background:#f4f5f3}
+header{background:#1f5f4a;color:#fff;padding:14px 16px}
+header h1{margin:0;font-size:20px}
+header p{margin:4px 0 0;font-size:14px;opacity:.9}
+header code{background:rgba(255,255,255,.18);color:#fff}
+main{max-width:900px;margin:0 auto;padding:12px}
+section{background:#fff;border:1px solid #dde3df;border-radius:10px;padding:12px 14px;margin:12px 0}
+h2{font-size:18px;margin:0 0 8px;color:#1f5f4a}
+h3{font-size:16px;margin:14px 0 6px}
+.item{border-top:1px solid #eef0ee;padding:10px 0}
+.item:first-of-type{border-top:0}
+.meta{font-size:13.5px;color:#4a5560;margin-top:4px}
+.badge{display:inline-block;font-size:12.5px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:6px}
+.b-draft{background:#fff3cd;color:#6b4e00}
+.b-ok{background:#d8f3dc;color:#1b4332}
+.b-bad{background:#fde2e1;color:#8a1c14}
+.st{font-size:14px;color:#6b4e00;margin-top:4px}
+code{font-size:13px;background:#f0f2f1;padding:1px 4px;border-radius:3px;word-break:break-all}
+a{color:#0b5d8a;word-break:break-word}
+.banner{margin:0;padding:8px 12px;font-size:13px;text-align:center;background:#1c2320;color:#f1f1f1;position:sticky;bottom:0}
+.banner a{color:#9fd8ff}
+.note{background:#fff8e6;border:1px solid #f0d58a;border-radius:8px;padding:10px;font-size:14.5px}
+</style>
+<style>
+/* demo entry gate - visible by default; JS removes it on acknowledgement. If JS fails,
+   the gate stays up and the demo stays unreachable. That is deliberate. */
+#demo-gate{position:fixed;inset:0;z-index:9999;background:#11170f;color:#f1f1f1;
+  overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:16px}
+#demo-gate .demo-gate-card{max-width:30rem;font-size:15px;line-height:1.5}
+#demo-gate h2{margin:0 0 .6em;font-size:19px;line-height:1.3}
+#demo-gate p{margin:0 0 .8em}
+#demo-gate .demo-gate-help{background:#5b1b1b;padding:10px 12px;border-radius:6px}
+#demo-gate button{width:100%;min-height:48px;margin-top:.4em;font-size:15px;
+  background:#1f5f4a;color:#fff;border:0;border-radius:6px;cursor:pointer}
+#demo-gate button:focus-visible{outline:3px solid #9fd8ff;outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="demo-gate" role="dialog" aria-modal="true" aria-labelledby="demo-gate-h">
+  <div class="demo-gate-card">
+    <h2 id="demo-gate-h">This is a demonstration, not a support service</h2>
+    <p><strong>Parent Helper</strong> is a prototype built by MEND GROUP (PTY) LTD to show a
+    design in a proposal. It is <strong>not a UNICEF product</strong>, it is not endorsed by any
+    ministry or agency, and its advice has <strong>not been reviewed</strong> by a
+    child-protection specialist.</p>
+    <p>Nothing you type is sent anywhere, stored, or read by a person.
+    <strong>No one is monitoring this page.</strong></p>
+    <p class="demo-gate-help">If a child is in danger right now, call <strong>112</strong>
+    (national emergency) or <strong>116</strong> (Child Helpline Lesotho). Those numbers are
+    free, real, and answered by people. This page is not.</p>
+    <button type="button" id="demo-gate-ok">I understand &mdash; show the demonstration</button>
+  </div>
+</div>
+<script>
+(function () {
+  var g = document.getElementById('demo-gate'), b = document.getElementById('demo-gate-ok');
+  if (!g || !b) return;
+  b.addEventListener('click', function () { g.parentNode.removeChild(g); });
+  b.focus();
+})();
+</script>
+
+<header>
+  <h1>Content view - read only</h1>
+  <p>What a Ministry / UNICEF content editor would see. Every chatbot message comes from <code>content/content.json</code>; this page renders that same file.</p>
+</header>
+<main id="out"><p>Loading content...</p></main>
+<p class="banner">Demonstration prototype by MEND GROUP (PTY) LTD for evaluation purposes - not a UNICEF product. <a href="index.html">Back to chat</a></p>
+<script src="loader.js"></script>
+<script>
+(function () {
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function badge(status) {
+    var cls = status === 'verified' || status === 'approved' ? 'b-ok' : (status === 'unconfirmed' ? 'b-bad' : 'b-draft');
+    return el('span', 'badge ' + cls, status);
+  }
+  window.loadContent().then(function (C) {
+    var out = document.getElementById('out'); out.innerHTML = '';
+    var src = {}; C.sources.forEach(function (s) { src[s.id] = s; });
+
+    var s0 = el('section'); s0.appendChild(el('h2', null, 'About this content'));
+    s0.appendChild(el('p', null, 'Version ' + C.meta.content_version + ' - last updated ' + C.meta.last_updated + ' by ' + C.meta.updated_by + '. Loaded from: ' + C.__loadedFrom));
+    s0.appendChild(el('p', 'note', C.meta.review_note));
+    s0.appendChild(el('p', 'note', C.meta.translation_note));
+    var nSteps = 0; C.flows.forEach(function (f) { nSteps += f.steps.length; });
+    s0.appendChild(el('p', null, C.flows.length + ' flows, ' + nSteps + ' advice items, ' + C.sources.length + ' sources, ' + C.contacts.length + ' referral contacts, ' + C.safety.categories.length + ' safety categories.'));
+    out.appendChild(s0);
+
+    var s1 = el('section'); s1.id = 'contacts'; s1.appendChild(el('h2', null, 'Referral contacts (shown on the safety screen)'));
+    C.contacts.forEach(function (c) {
+      var d = el('div', 'item');
+      var h = el('div'); h.appendChild(badge(c.status)); h.appendChild(el('strong', null, c.name.en + (c.number ? ' - ' + c.number : ' - no number shown')));
+      d.appendChild(h);
+      d.appendChild(el('div', 'meta', c.description.en));
+      d.appendChild(el('div', 'meta', 'Evidence: ' + c.evidence));
+      if (c.verified_from.length) {
+        var m = el('div', 'meta', 'Verified ' + c.verified_on + ' from: ');
+        c.verified_from.forEach(function (u, i) { var a = el('a', null, u); a.href = u; a.target = '_blank'; a.rel = 'noopener'; if (i) m.appendChild(document.createTextNode(' | ')); m.appendChild(a); });
+        d.appendChild(m);
+      }
+      d.appendChild(el('div', 'meta', 'Still to confirm: ' + c.still_to_confirm));
+      s1.appendChild(d);
+    });
+    out.appendChild(s1);
+
+    var s2 = el('section'); s2.id = 'flows'; s2.appendChild(el('h2', null, 'Conversation flows and advice items'));
+    C.flows.forEach(function (f) {
+      s2.appendChild(el('h3', null, f.title.en + '  (' + f.id + ')'));
+      s2.appendChild(el('div', 'meta', 'Keywords: ' + f.keywords.join(', ')));
+      f.steps.forEach(function (st) {
+        var d = el('div', 'item');
+        var h = el('div'); h.appendChild(badge(st.review_status)); h.appendChild(el('code', null, f.id + '/' + st.id)); d.appendChild(h);
+        d.appendChild(el('p', null, st.text.en));
+        if (st.text.st) d.appendChild(el('div', 'st', 'Sesotho (draft translation - to be validated by a native speaker): ' + st.text.st));
+        var m = el('div', 'meta', 'Source: ');
+        st.source_ids.forEach(function (id, i) { var s = src[id]; var a = el('a', null, s.title + ' (' + s.publisher + ')'); a.href = s.url; a.target = '_blank'; a.rel = 'noopener'; if (i) m.appendChild(document.createTextNode('; ')); m.appendChild(a); });
+        d.appendChild(m);
+        d.appendChild(el('div', 'meta', 'Where in the source: ' + st.source_detail));
+        var nx = st.options ? 'Options: ' + st.options.map(function (o) { return '"' + o.label.en + '" -> ' + o.next; }).join(', ') : 'Next: ' + st.next;
+        d.appendChild(el('div', 'meta', nx));
+        s2.appendChild(d);
+      });
+    });
+    out.appendChild(s2);
+
+    var s3 = el('section'); s3.id = 'safety'; s3.appendChild(el('h2', null, 'Safety triggers (checked before anything else)'));
+    s3.appendChild(el('p', 'note', C.safety.note));
+    C.safety.categories.forEach(function (c) {
+      var d = el('div', 'item'); d.appendChild(el('strong', null, c.label + ' (' + c.id + ')'));
+      d.appendChild(el('div', 'meta', 'Contacts shown, in order: ' + c.contacts_order.join(', ')));
+      var p = el('div', 'meta', 'Patterns: '); c.patterns.forEach(function (x) { p.appendChild(el('code', null, x)); p.appendChild(document.createTextNode(' ')); });
+      d.appendChild(p); s3.appendChild(d);
+    });
+    out.appendChild(s3);
+
+    var s4 = el('section'); s4.id = 'sources'; s4.appendChild(el('h2', null, 'Evidence sources'));
+    C.sources.forEach(function (s) {
+      var d = el('div', 'item'); d.appendChild(el('strong', null, s.title));
+      d.appendChild(el('div', 'meta', s.publisher + ' - fetched ' + s.fetched));
+      var a = el('a', null, s.url); a.href = s.url; a.target = '_blank'; a.rel = 'noopener'; d.appendChild(a);
+      s4.appendChild(d);
+    });
+    out.appendChild(s4);
+    document.body.setAttribute('data-ready', '1');
+  }).catch(function (e) { document.getElementById('out').textContent = 'Could not load content: ' + e.message; });
+})();
+</script>
+</body>
+</html>
