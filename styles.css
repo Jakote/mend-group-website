@@ -893,11 +893,14 @@ nav .container {
 }
 
 /* --- Archive subsection (open-source / case studies) --- */
-/* The archive holds fewer cards than a full row: size tracks like the main grid
-   and centre them, so a short row never leaves an empty slot on one side. */
-.portfolio-archive .portfolio-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 368px));
-  justify-content: center;
+/* The archive holds fewer cards than a full row. Where the main grid has three
+   columns, size tracks exactly like it and centre them, so a short row never
+   leaves an empty slot; at 1024px and below the shared 2/1-column rules apply. */
+@media (min-width: 1025px) {
+  .portfolio-archive .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, calc((100% - 48px) / 3));
+    justify-content: center;
+  }
 }
 
 .portfolio-archive {
