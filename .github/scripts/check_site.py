@@ -89,6 +89,8 @@ for page_name, text in PUBLIC.items():
     check(f"F  {page_name}: no public link to a preview",
           not [h for h in re.findall(r"""href=["']([^"']*)["']""", text) if "previews/" in h])
 check("F2 proof sentence present", "ask us to show you one" in home)
+check("F3 no link to the site's own repo (internal notes live there)",
+      "github.com/Jakote/mend-group-website" not in home)
 
 def _as_list(v):
     return v if isinstance(v, list) else ([] if v is None else [v])
