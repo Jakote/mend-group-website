@@ -7,10 +7,11 @@ description: How to drive a PR on mend-group-website from open to merged - verif
 
 1. **Before opening or pushing**: run `.github/scripts/check_site.py` against a local
    server (see `.claude/CLAUDE.md`). For any change to public copy, also run the
-   `claims-auditor` agent on the diff. Screenshot any visual change with Playwright.
+   `claims-auditor` agent on the diff. For any change to layout, styles or markup, run
+   `.github/scripts/visual_check.cjs` and the `ui-reviewer` agent, and attach screenshots.
 2. **Open the PR** with: what changed, why, every judgement call, the check output, and
    anything left for the owner to decide. Not a draft unless something is knowingly failing.
-3. **CI red** (`Site check / claims-guard`): fix the page, or, if the check is wrong, fix
+3. **CI red** (`Site check / claims-guard` or `Site check / visual`): fix the page, or, if the check is wrong, fix
    the check in the same PR and explain it. Never delete a check to get green.
 4. **Review comments** (Claude review, CodeRabbit, humans): fix blocking findings and
    plainly correct nits; reply once on anything you are not changing, with the reason.
@@ -18,7 +19,7 @@ description: How to drive a PR on mend-group-website from open to merged - verif
    opens PRs through their own GitHub account, so GitHub will not let them click Approve;
    the chat go-ahead is the approval. Merge only when ALL hold:
    - owner go-ahead given for this PR,
-   - `claims-guard` green on the current head,
+   - `claims-guard` and `visual` green on the current head,
    - no unresolved blocking review finding,
    - no merge conflict.
    Squash merge. Never merge on a bot's say-so.

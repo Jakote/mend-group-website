@@ -29,9 +29,12 @@ When a claim is removed, add nothing in its place unless the replacement is supp
 ```bash
 python3 -m http.server 8000 &
 python3 .github/scripts/check_site.py http://localhost:8000
+node .github/scripts/visual_check.cjs http://localhost:8000 /tmp/visual-out   # needs playwright
 ```
-CI runs the same script (`Site check / claims-guard`) on every PR and against the live site
-after each Pages deploy. `Claude review` is opt-in: it reviews a non-draft PR only when it
+CI runs the same scripts on every PR (`Site check / claims-guard` and `Site check / visual`,
+whose screenshots are uploaded as the `visual` artifact), and the claims check against the
+live site after each Pages deploy. For UI/UX changes, run the `ui-reviewer` agent; for copy
+changes, the `claims-auditor` agent. `Claude review` is opt-in: it reviews a non-draft PR only when it
 carries the `needs-review` label, using the `CLAUDE_CODE_OAUTH_TOKEN` repository secret. If a check is wrong rather than the page,
 change the check in the same PR and say why in the description.
 
