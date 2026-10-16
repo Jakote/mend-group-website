@@ -1533,7 +1533,8 @@ nav .container {
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr): let the inputs shrink to the column instead of overflowing it. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 18px;
 }
 
