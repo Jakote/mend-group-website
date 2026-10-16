@@ -1533,7 +1533,8 @@ nav .container {
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr): let the inputs shrink to the column instead of overflowing it. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 18px;
 }
 
@@ -1550,6 +1551,18 @@ nav .container {
   background: rgba(0, 104, 95, 0.08);
   color: var(--primary);
   box-shadow: inset 0 0 0 1px rgba(0, 104, 95, 0.18);
+}
+
+.form-status.error {
+  display: block;
+  background: rgba(179, 38, 30, 0.07);
+  color: #8c1d18;
+  box-shadow: inset 0 0 0 1px rgba(179, 38, 30, 0.22);
+}
+
+.form-status.error a {
+  color: inherit;
+  font-weight: 600;
 }
 
 /* ===== Footer ===== */
