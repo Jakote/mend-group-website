@@ -321,6 +321,9 @@ nav .container {
 .hero .container {
   position: relative;
   z-index: 1;
+  /* Flex item of .hero: without this it shrinks to the text and centres itself,
+     so the hero copy no longer lines up with the nav. */
+  width: 100%;
 }
 
 .hero-content {
@@ -576,6 +579,9 @@ nav .container {
   padding: 140px 0;
   position: relative;
   background: var(--surface);
+  /* The decorative orb sits partly off-canvas; clip it here, as .hero does,
+     so it never widens the page. */
+  overflow-x: clip;
 }
 
 .services-bg-orb {
@@ -887,6 +893,16 @@ nav .container {
 }
 
 /* --- Archive subsection (open-source / case studies) --- */
+/* The archive holds fewer cards than a full row. Where the main grid has three
+   columns, size tracks exactly like it and centre them, so a short row never
+   leaves an empty slot; at 1024px and below the shared 2/1-column rules apply. */
+@media (min-width: 1025px) {
+  .portfolio-archive .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, calc((100% - 48px) / 3));
+    justify-content: center;
+  }
+}
+
 .portfolio-archive {
   margin-top: 96px;
   padding-top: 72px;
@@ -2017,7 +2033,8 @@ footer {
 
 .mission-pillars {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Fills the row whatever the pillar count, so removing one never leaves a gap. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 20px;
   text-align: left;
 }
@@ -2235,9 +2252,6 @@ footer {
   .insight-featured {
     grid-row: span 1;
     grid-column: span 2;
-  }
-  .mission-pillars {
-    grid-template-columns: repeat(2, 1fr);
   }
   .careers-hero {
     grid-template-columns: 1fr;
