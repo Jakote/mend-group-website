@@ -73,52 +73,64 @@ if (moreToggle && moreContent) {
 }
 
 // ===== Contact Form — AJAX via FormSubmit.co =====
+// The form's action is FormSubmit's normal endpoint, so it still works without
+// JavaScript. With JavaScript we post to the /ajax/ endpoint instead, which answers
+// with JSON ({"success": "true"|"false", "message": ...}). Only a success answer
+// counts as sent: an HTTP 200 alone is not proof the message was accepted.
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
+  const status = document.getElementById('formStatus');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  const ajaxUrl = contactForm.action.replace('://formsubmit.co/', '://formsubmit.co/ajax/');
+
+  const showStatus = (kind, text, mailto) => {
+    status.className = 'form-status ' + kind;
+    status.textContent = text;
+    if (mailto) {
+      status.append(' ');
+      const link = document.createElement('a');
+      link.href = mailto;
+      link.textContent = 'Send it by email instead';
+      status.append(link);
+      status.append('.');
+    }
+  };
+
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const status = document.getElementById('formStatus');
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
-
     submitBtn.innerHTML = 'Sending...';
     submitBtn.disabled = true;
+    status.className = 'form-status';
+
+    const formData = new FormData(contactForm);
+    let sent = false;
 
     try {
-      const formData = new FormData(contactForm);
-
-      const response = await fetch(contactForm.action, {
+      const response = await fetch(ajaxUrl, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
-
-      if (response.ok) {
-        status.textContent = 'Message sent successfully! We\'ll get back to you as soon as we can.';
-        status.className = 'form-status success';
-        contactForm.reset();
-      } else {
-        throw new Error('Failed to send');
-      }
+      const data = await response.json().catch(() => ({}));
+      sent = response.ok && String(data.success) === 'true';
     } catch (err) {
-      // Fallback to mailto
-      const formData = new FormData(contactForm);
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const service = formData.get('service');
-      const message = formData.get('message');
+      sent = false;
+    }
 
-      const subject = encodeURIComponent('Website Enquiry: ' + service);
+    if (sent) {
+      showStatus('success', "Message sent. We'll get back to you as soon as we can.");
+      contactForm.reset();
+    } else {
+      const subject = encodeURIComponent('Website Enquiry: ' + (formData.get('service') || ''));
       const body = encodeURIComponent(
-        'Name: ' + name + '\nEmail: ' + email + '\nService: ' + service + '\n\n' + message
+        'Name: ' + formData.get('name') + '\nEmail: ' + formData.get('email') +
+        '\nService: ' + formData.get('service') + '\n\n' + formData.get('message')
       );
-
-      window.location.href = 'mailto:info@mendgroup.co.za?subject=' + subject + '&body=' + body;
-
-      status.textContent = 'Opening your email client as a fallback. You can also email us directly at info@mendgroup.co.za';
-      status.className = 'form-status success';
+      showStatus('error', 'Your message could not be sent from the form.',
+        'mailto:info@mendgroup.co.za?subject=' + subject + '&body=' + body);
     }
 
     submitBtn.innerHTML = originalText;
