@@ -165,7 +165,7 @@ section.alt { background: var(--paper-2); border-block: 1px solid var(--line); }
 .case .status.pilot { border-color: #c99a1e; }
 .case .open {
   margin-top: auto; display: flex; align-items: center; min-height: 44px;
-  font-weight: 700; text-decoration: none; word-break: break-all;
+  font-weight: 700; text-decoration: none; overflow-wrap: anywhere;
 }
 .case .open span { text-decoration: underline; text-underline-offset: 3px; }
 
