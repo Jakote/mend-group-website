@@ -100,6 +100,7 @@ def _place_name(v):
     return v.get("name") if isinstance(v, dict) else v
 
 
+nodes = []
 m = re.search(r'application/ld\+json"?\s*>(.*?)</script>', home, re.S)
 try:
     ld = json.loads(m.group(1)) if m else None
@@ -185,6 +186,47 @@ for d in DEMOS:
         absent(f"Z2 {label} no borrowed authority", page,
                r"(?<!not )endorsed by|in partnership with|on behalf of UNICEF|"
                r"official[^.]{0,20}UNICEF")
+
+# ---------------------------------------------------------------------------
+# Evaluator proof (20 Oct 2026). A tender or funding evaluator must find, in
+# under a minute, the registration facts, work they can open, and a one-page
+# capability statement that says the same thing as the page.
+check("T  homepage leads with verifiable proof", "rather show you working software" in home)
+check("T  homepage links the capability statement", 'href="capability-statement.pdf"' in home)
+req = urllib.request.Request(BASE + "/capability-statement.pdf", headers={"User-Agent": "mend-site-check"})
+try:
+    with urllib.request.urlopen(req, timeout=30) as r:
+        pdf_ok = r.status == 200 and r.read(5) == b"%PDF-"
+except (urllib.error.URLError, OSError):
+    pdf_ok = False
+check("T  capability-statement.pdf is served and is a PDF", pdf_ok)
+
+STATEMENT = Path(__file__).resolve().parents[1] / "capability" / "statement.html"
+statement = STATEMENT.read_text(encoding="utf-8") if STATEMENT.is_file() else ""
+check("U  statement source present", bool(statement))
+# The same facts, word for word, on the page and in the PDF source. If one is
+# edited, rebuild the PDF (node .github/scripts/build_capability.cjs) and this passes.
+FACTS = ["MEND GROUP (PTY) LTD", "96070", "13 June 2025", "Companies Act 2011",
+         "Sekamaneng, Maseru", "P.O. Box 173, Maseru, 100", "info@mendgroup.co.za",
+         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "michanic.velangaye.co.za",
+         "platforms.mendgroup.co.za", "seven years", "No users yet"]
+for fact in FACTS:
+    check(f"U  fact on both page and statement: {fact}",
+          fact.lower() in home.lower() and fact.lower() in statement.lower())
+absent("U  statement: no published TIN", statement, r"\b\d{9}-\d\b|\bTIN\b", 0)
+absent("U  statement/homepage: no withdrawn costing claim", home + statement,
+       r"7[01]\s?%|overhead understated|understates overhead")
+absent("U  no unbacked counts or awards", home + statement,
+       r"\b\d+\+? (?:clients|projects delivered|happy customers|team members|employees)\b|award-winning|certified")
+
+orgs = [n for n in nodes if isinstance(n, dict) and "Organization" in str(n.get("@type"))]
+check("V  JSON-LD Organization present", bool(orgs))
+if orgs:
+    ident = orgs[0].get("identifier") or {}
+    check("V  JSON-LD carries Reg No. 96070", isinstance(ident, dict) and ident.get("value") == "96070", str(ident))
+    check("V  JSON-LD foundingDate 2025-06-13", orgs[0].get("foundingDate") == "2025-06-13")
+check("V  canonical and og:image set",
+      'rel="canonical"' in home and 'property="og:image"' in home)
 
 print()
 if failures:
