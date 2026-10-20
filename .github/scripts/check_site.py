@@ -208,7 +208,7 @@ check("U  statement source present", bool(statement))
 # edited, rebuild the PDF (node .github/scripts/build_capability.cjs) and this passes.
 FACTS = ["MEND GROUP (PTY) LTD", "96070", "13 June 2025", "Companies Act 2011",
          "Sekamaneng, Maseru", "P.O. Box 173, Maseru, 100", "info@mendgroup.co.za",
-         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "michanic.velangaye.co.za",
+         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "private preview", "shown on request",
          "platforms.mendgroup.co.za", "seven years", "No users yet"]
 for fact in FACTS:
     check(f"U  fact on both page and statement: {fact}",
@@ -216,6 +216,13 @@ for fact in FACTS:
 absent("U  statement: no published TIN", statement, r"\b\d{9}-\d\b|\bTIN\b", 0)
 absent("U  statement/homepage: no withdrawn costing claim", home + statement,
        r"7[01]\s?%|overhead understated|understates overhead")
+# MEND's own collected revenue is R5,000; R35,200 was paid to the founder personally in
+# 2021, before MEND existed. No revenue figure is published at all.
+absent("U  no revenue figure", home + statement, r"R\s?40[ ,]?200|R\s?35[ ,]?200|revenue of|in revenue")
+# Philalink is described, not linked: that domain carries marketing claims MEND cannot back.
+check("U  no link to the Machenic marketing site", "velangaye" not in home and "velangaye" not in statement)
+absent("U  no blanket fixed-price or RLS-everywhere claims", home + statement,
+       r"fixed price, agreed before|row-level security on every|automated checks on every change")
 absent("U  no unbacked counts or awards", home + statement,
        r"\b\d+\+? (?:clients|projects delivered|happy customers|team members|employees)\b|award-winning|certified")
 
