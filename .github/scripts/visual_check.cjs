@@ -20,6 +20,7 @@ const OUT = process.argv[3] || 'visual-out';
 
 const PAGES = [
   '/', '/document-chase/',
+  '/work/tm-stone/', '/work/philalink/', '/work/mend-platforms/',
   '/previews/khali-hotel/', '/previews/mohahlaula-boutique/', '/previews/lesotho-fap/',
 ];
 const VIEWPORTS = [

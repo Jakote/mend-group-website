@@ -191,7 +191,7 @@ for d in DEMOS:
 # Evaluator proof (20 Oct 2026). A tender or funding evaluator must find, in
 # under a minute, the registration facts, work they can open, and a one-page
 # capability statement that says the same thing as the page.
-check("T  homepage leads with verifiable proof", "rather show you working software" in home)
+check("T  homepage leads with the work", "screenshots of the real screens" in home)
 check("T  homepage links the capability statement", 'href="capability-statement.pdf"' in home)
 req = urllib.request.Request(BASE + "/capability-statement.pdf", headers={"User-Agent": "mend-site-check"})
 try:
@@ -208,7 +208,7 @@ check("U  statement source present", bool(statement))
 # edited, rebuild the PDF (node .github/scripts/build_capability.cjs) and this passes.
 FACTS = ["MEND GROUP (PTY) LTD", "96070", "13 June 2025", "Companies Act 2011",
          "Sekamaneng, Maseru", "P.O. Box 173, Maseru, 100", "info@mendgroup.co.za",
-         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "private preview", "shown on request",
+         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "private preview", "demo data",
          "platforms.mendgroup.co.za", "seven years", "No users yet"]
 for fact in FACTS:
     check(f"U  fact on both page and statement: {fact}",
@@ -234,6 +234,35 @@ if orgs:
     check("V  JSON-LD foundingDate 2025-06-13", orgs[0].get("foundingDate") == "2025-06-13")
 check("V  canonical and og:image set",
       'rel="canonical"' in home and 'property="og:image"' in home)
+
+# ---------------------------------------------------------------------------
+# Case studies (21 Oct 2026). Each client page must load, say its screenshots use
+# demo data, say the client agreed to be named, and carry no cost figure, margin,
+# MEND price or the withdrawn costing claim. Every screenshot must exist, be lazy,
+# and have its size set so the page does not jump while it loads.
+WORK = {"tm-stone": "Named with the client's permission",
+        "philalink": "Named with the client's permission",
+        "mend-platforms": "No users yet"}
+for slug, must in WORK.items():
+    status, page = fetch(f"/work/{slug}/")
+    check(f"W  /work/{slug}/ 200", status == 200, str(status))
+    check(f"W  {slug}: says '{must}'", must in page)
+    check(f"W  {slug}: homepage links it", f'href="work/{slug}/"' in home)
+    if slug != "mend-platforms":
+        check(f"W  {slug}: screenshots disclosed as demo data", "demo data" in page)
+    absent(f"W  {slug}: no costing claim, margin or MEND price", page,
+           r"7[01]\s?%|overhead understated|understates overhead|\bmargin\b|mark-?up|\bR\s?\d[\d,]{2,}")
+    check(f"W  {slug}: no link to the Machenic marketing site", "velangaye" not in page)
+    imgs = re.findall(r"<img [^>]*>", page)
+    for tag in imgs:
+        src = re.search(r'src="([^"]+)"', tag).group(1)
+        if "/assets/work/" not in src:
+            continue
+        s_img, _ = fetch(src)
+        check(f"W  {slug}: {src.rsplit('/', 1)[-1]} served", s_img == 200, str(s_img))
+        check(f"W  {slug}: {src.rsplit('/', 1)[-1]} lazy, sized, has alt",
+              'loading="lazy"' in tag and 'width="' in tag and 'height="' in tag and re.search(r'alt="[^"]+"', tag))
+absent("W  homepage: no MEND price or margin", home, r"\bmargin\b|\bR\s?\d[\d,]{2,}")
 
 print()
 if failures:
