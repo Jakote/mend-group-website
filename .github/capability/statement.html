@@ -10,39 +10,45 @@
 <style>
   @page { size: A4; margin: 0; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', sans-serif; font-size: 8.9pt; line-height: 1.36; color: #2b3433; width: 210mm; height: 297mm; padding: 11mm 13mm 16mm; position: relative; }
+  body { font-family: 'Inter', sans-serif; font-size: 8.5pt; line-height: 1.34; color: #2b3433; width: 210mm; height: 297mm; padding: 10mm 12mm 15mm; position: relative; }
   h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; color: #1a1c1c; letter-spacing: -0.01em; }
   a { color: #00685f; text-decoration: none; }
-  .top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2.5px solid #00685f; padding-bottom: 9px; margin-bottom: 10px; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2.5px solid #00685f; padding-bottom: 8px; margin-bottom: 8px; }
   .top .brand { display: flex; gap: 10px; align-items: center; }
-  .top img { width: 40px; height: 40px; }
-  .top h1 { font-size: 19pt; font-weight: 800; line-height: 1.05; }
-  .top .sub { font-size: 9pt; color: #5c6967; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
-  .top .doc { text-align: right; font-size: 8.6pt; color: #5c6967; }
+  .top img { width: 38px; height: 38px; }
+  .top h1 { font-size: 18pt; font-weight: 800; line-height: 1.05; }
+  .top .sub { font-size: 8.6pt; color: #5c6967; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .top .doc { text-align: right; font-size: 8.4pt; color: #5c6967; }
   .top .doc b { display: block; font-size: 11pt; color: #00685f; font-family: 'Plus Jakarta Sans', sans-serif; }
-  .intro { font-size: 9.8pt; color: #1a1c1c; margin-bottom: 10px; }
-  .grid { display: grid; grid-template-columns: 1.55fr 1fr; gap: 12px; }
-  h2 { font-size: 9.4pt; text-transform: uppercase; letter-spacing: 0.08em; color: #00685f; margin: 0 0 5px; padding-bottom: 3px; border-bottom: 1px solid #dfe3e2; }
-  .block { margin-bottom: 8px; }
-  .case { margin-bottom: 6px; }
-  .case h3 { font-size: 10pt; font-weight: 800; }
-  .case h3 span { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 8.2pt; color: #5c6967; margin-left: 4px; }
-  .case p { margin-top: 1px; }
-  .case .url { font-weight: 700; font-size: 8.8pt; }
-  ul { padding-left: 13px; }
+  .intro { font-size: 9.3pt; color: #1a1c1c; margin-bottom: 8px; }
+  .grid { display: grid; grid-template-columns: 1.62fr 1fr; gap: 12px; }
+  h2 { font-size: 9pt; text-transform: uppercase; letter-spacing: 0.08em; color: #00685f; margin: 0 0 5px; padding-bottom: 3px; border-bottom: 1px solid #dfe3e2; }
+  .block { margin-bottom: 7px; }
+  .case { display: grid; grid-template-columns: 27mm 1fr; gap: 8px; margin-bottom: 7px; padding-bottom: 7px; border-bottom: 1px dashed #dfe3e2; }
+  .case:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .case .pics { display: flex; flex-direction: column; gap: 3px; }
+  .case .pics img { width: 27mm; height: 19mm; object-fit: cover; object-position: top center; border: 0.6px solid #c5cecc; border-radius: 2px; display: block; }
+  .case h3 { font-size: 9.6pt; font-weight: 800; }
+  .case h3 span { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 7.8pt; color: #5c6967; margin-left: 3px; }
+  .case p { margin-top: 2px; }
+  .case ul { padding-left: 11px; margin-top: 2px; }
+  .case li { margin-bottom: 1px; }
+  .case .url { font-weight: 700; font-size: 8.2pt; margin-top: 3px; }
+  ul { padding-left: 12px; }
   li { margin-bottom: 2px; }
   .caps li b { color: #1a1c1c; }
-  .side { background: #f1f2f1; border-radius: 6px; padding: 10px 11px; }
-  .side dl div { padding: 3px 0; border-bottom: 1px solid #dfe3e2; }
+  .side { background: #f1f2f1; border-radius: 6px; padding: 9px 10px; }
+  .side dl div { padding: 2.5px 0; border-bottom: 1px solid #dfe3e2; }
   .side dl div:last-child { border-bottom: 0; }
-  .side dt { font-size: 7.8pt; color: #5c6967; text-transform: uppercase; letter-spacing: 0.06em; }
+  .side dt { font-size: 7.4pt; color: #5c6967; text-transform: uppercase; letter-spacing: 0.06em; }
   .side dd { font-weight: 600; color: #1a1c1c; }
   .steps { counter-reset: s; list-style: none; padding: 0; }
-  .steps li { counter-increment: s; padding-left: 18px; position: relative; }
-  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 13px; height: 13px; border-radius: 50%; background: #00685f; color: #fff; font-size: 7.4pt; font-weight: 700; text-align: center; line-height: 13px; }
-  .pilot { display: inline-block; background: #fff6df; color: #6b4e00; font-weight: 700; font-size: 7.6pt; padding: 0 5px; border-radius: 3px; margin-left: 3px; }
-  .client { display: inline-block; background: #e3f4f1; color: #00685f; font-weight: 700; font-size: 7.6pt; padding: 0 5px; border-radius: 3px; margin-left: 3px; }
-  .foot { position: absolute; left: 14mm; right: 14mm; bottom: 9mm; border-top: 1px solid #dfe3e2; padding-top: 6px; font-size: 8pt; color: #5c6967; display: flex; justify-content: space-between; gap: 10px; }
+  .steps li { counter-increment: s; padding-left: 17px; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: #00685f; color: #fff; font-size: 7pt; font-weight: 700; text-align: center; line-height: 12px; }
+  .pilot { display: inline-block; background: #fff6df; color: #6b4e00; font-weight: 700; font-size: 7.2pt; padding: 0 4px; border-radius: 3px; margin-left: 2px; }
+  .client { display: inline-block; background: #e3f4f1; color: #00685f; font-weight: 700; font-size: 7.2pt; padding: 0 4px; border-radius: 3px; margin-left: 2px; }
+  .small { font-size: 7.6pt; color: #5c6967; margin-top: 4px; }
+  .foot { position: absolute; left: 12mm; right: 12mm; bottom: 8mm; border-top: 1px solid #dfe3e2; padding-top: 5px; font-size: 7.8pt; color: #5c6967; display: flex; justify-content: space-between; gap: 10px; }
 </style>
 </head>
 <body>
@@ -57,38 +63,59 @@
     <div class="doc"><b>Capability statement</b>October 2026<br>mendgroup.co.za</div>
   </div>
 
-  <p class="intro">A Lesotho-registered software company. We build web and mobile systems for businesses, and our own platforms in Sesotho and English, built to keep working offline on low-cost phones. Public systems are listed with their address; client back-offices are shown on request.</p>
+  <p class="intro">A Lesotho-registered software company. We build web and phone systems for businesses, and our own platforms in Sesotho and English that keep working offline on low-cost phones. Each project below has a case study with screenshots at mendgroup.co.za/work.</p>
 
   <div class="grid">
     <div>
       <div class="block">
-        <h2>Delivered work you can check</h2>
+        <h2>Work</h2>
         <div class="case">
-          <h3>TM Stone Solutions (PTY) LTD <span>Paving manufacturer, Maseru</span><span class="client">CLIENT &middot; PRIVATE PREVIEW</span></h3>
-          <p>Company website, an instant quote calculator that prices a job from the company's own price list, and an owner back-office for quotes, jobs, sales, reports and staff records, built offline-first for a phone. A client project in private preview, going live on the client's own domain; the back-office holds client data and is shown on request.</p>
-          <p class="url"><a href="https://jakote.github.io/tm-stone-preview/">jakote.github.io/tm-stone-preview</a></p>
+          <div class="pics">
+            <img src="thumbs/tm-site.jpg" alt="">
+            <img src="thumbs/tm-crew.jpg" alt="">
+          </div>
+          <div>
+            <h3>TM Stone Solutions (PTY) LTD <span>Paving manufacturer, Maseru</span><span class="client">CLIENT &middot; PRIVATE PREVIEW</span></h3>
+            <ul>
+              <li>Website with a calculator that prices a paving job from the published price list and sends it on WhatsApp with the paver, area and price filled in.</li>
+              <li>Owner's back-office on a phone, built in five phases: quotes and costing, jobs, production and crew dates, stock and supplier orders, invoices and payments. Works offline; two phones share the same records.</li>
+              <li>13 automated test suites. Back-office built and tested, not yet in daily use.</li>
+            </ul>
+            <p class="url"><a href="https://jakote.github.io/tm-stone-preview/">jakote.github.io/tm-stone-preview</a> &middot; <a href="https://mendgroup.co.za/work/tm-stone/">mendgroup.co.za/work/tm-stone</a></p>
+          </div>
         </div>
         <div class="case">
-          <h3>Philalink <span>Mobile mechanic booking platform</span><span class="client">CLIENT &middot; DELIVERED</span></h3>
-          <p>Customers choose vehicle and services and see the price before they book; separate signed-in areas for customers, mechanics and administrators; location pages. Delivered and deployed on the client's own domain; shown on request.</p>
+          <div class="pics">
+            <img src="thumbs/ph-admin.jpg" alt="">
+            <img src="thumbs/ph-track.jpg" alt="">
+          </div>
+          <div>
+            <h3>Philalink <span>Mobile mechanic booking platform</span><span class="client">CLIENT &middot; DELIVERED</span></h3>
+            <ul>
+              <li>Customers book a mechanic to their door and see the total before they confirm.</li>
+              <li>A booking goes to the nearest free mechanic within 50 km; the customer follows them on a live map.</li>
+              <li>Separate areas for customers, mechanics and the office; email notifications; inspection checklists and quotes.</li>
+              <li>Delivered and running on the client's own domain. 32 automated tests.</li>
+            </ul>
+            <p class="url"><a href="https://mendgroup.co.za/work/philalink/">mendgroup.co.za/work/philalink</a></p>
+          </div>
         </div>
         <div class="case">
-          <h3>Mafisa, Pitso and Matsema <span>MEND community platforms</span><span class="pilot">PILOT</span></h3>
-          <p>Equipment lending (a bakkie, a tractor, a mixer) with ownership proof checked; skilled trades found, engaged and rated; small producers pooling supply. One shared identity, verification and reputation system with a tamper-evident record. Sesotho and English, installable, built to work offline. Records agreements, never holds or moves money. Running on sample data; no users yet.</p>
-          <p class="url"><a href="https://platforms.mendgroup.co.za/">platforms.mendgroup.co.za</a></p>
+          <div class="pics">
+            <img src="thumbs/pl-matsema.jpg" alt="">
+            <img src="thumbs/pl-pitso.jpg" alt="">
+          </div>
+          <div>
+            <h3>Mafisa, Pitso and Matsema <span>MEND community platforms</span><span class="pilot">PILOT</span></h3>
+            <ul>
+              <li>Lend equipment with ownership checked; find a trade for one job and rate it; pool supply from small producers for one large order.</li>
+              <li>One shared identity, document-check and reputation system with an append-only record. Sesotho and English, installable, works offline.</li>
+              <li>Records agreements; never holds or moves money. Running on sample data. No users yet.</li>
+            </ul>
+            <p class="url"><a href="https://platforms.mendgroup.co.za/">platforms.mendgroup.co.za</a> &middot; <a href="https://mendgroup.co.za/work/mend-platforms/">mendgroup.co.za/work/mend-platforms</a></p>
+          </div>
         </div>
-      </div>
-
-      <div class="block caps">
-        <h2>Capabilities</h2>
-        <ul>
-          <li><b>Software development:</b> web applications, installable phone apps (PWAs), APIs and PostgreSQL databases; Python, JavaScript and TypeScript, Go.</li>
-          <li><b>Cloud and hosting:</b> deployment, domains, DNS, business email routing and managed PostgreSQL on free or low-cost tiers.</li>
-          <li><b>IT consulting:</b> turning a business's own prices and processes into a working system: costing and quoting, booking, record-keeping.</li>
-          <li><b>Security and data protection:</b> row-level security on the tables holding identity, documents, agreements, payment records, disputes and reviews; only the public key in phone code; data export and erasure designed in; automated test suites run before release.</li>
-          <li><b>Local language, low-cost phones:</b> Sesotho and English interfaces, offline-first apps, light pages for expensive mobile data.</li>
-          <li><b>Data and automation:</b> pipelines, scheduled jobs and analysis.</li>
-        </ul>
+        <p class="small">Client names used with permission. Back-office screenshots use demo data.</p>
       </div>
     </div>
 
@@ -104,7 +131,6 @@
           <div><dt>Postal address</dt><dd>P.O. Box 173, Maseru, 100</dd></div>
           <div><dt>Email</dt><dd>info@mendgroup.co.za</dd></div>
           <div><dt>Phone and WhatsApp</dt><dd>+27 83 209 2120</dd></div>
-          <div><dt>Web</dt><dd>mendgroup.co.za</dd></div>
         </dl>
       </div>
 
@@ -113,22 +139,24 @@
         <p><b>Jakote Lejaha</b>, Founder and Managing Director. Software engineer with seven years of building production software: backend services, APIs and integrations, and the automated tests and deployment pipelines around them. BCom Honours in Information Technology Management (2022).</p>
       </div>
 
-      <div class="block">
-        <h2>How we deliver</h2>
-        <ol class="steps">
-          <li><b>Phases you can open:</b> larger work is split into phases, each delivered to a live address you can check on your phone.</li>
-          <li><b>Tested before you see it:</b> releases are tested, including at phone width, before they reach you.</li>
-          <li><b>Handover:</b> your domain, your accounts, your data, with written setup and handover notes.</li>
-        </ol>
+      <div class="block caps">
+        <h2>Capabilities</h2>
+        <ul>
+          <li><b>Software:</b> web apps, installable phone apps, APIs, PostgreSQL; Python, JavaScript, TypeScript, Go.</li>
+          <li><b>Cloud and hosting:</b> deployment, domains, DNS, email routing, managed PostgreSQL on low-cost tiers.</li>
+          <li><b>Business systems:</b> a company's own prices and processes turned into quoting, costing, booking and records.</li>
+          <li><b>Data protection:</b> row-level security, data export and erasure, automated tests before release.</li>
+          <li><b>Sesotho and English</b>, offline-first, light pages.</li>
+        </ul>
       </div>
 
       <div class="block">
-        <h2>What is different</h2>
-        <ul>
-          <li>Built in Sesotho and English from the start.</li>
-          <li>Offline-first for low-cost Android phones and expensive data.</li>
-          <li>The person who scopes the work is the person who builds it.</li>
-        </ul>
+        <h2>How we deliver</h2>
+        <ol class="steps">
+          <li>Phases, each on a live address you can open on your phone.</li>
+          <li>Tested at phone width before you see it.</li>
+          <li>Your domain, your accounts, your data, with written handover notes.</li>
+        </ol>
       </div>
     </div>
   </div>

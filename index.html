@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2026-10-20b">
+  <link rel="stylesheet" href="styles.css?v=2026-10-21b">
   <script>document.documentElement.classList.add('js')</script>
 
   <script type="application/ld+json">
@@ -123,51 +123,57 @@
     <section id="work" aria-labelledby="work-title">
       <div class="wrap">
         <div class="section-head">
-          <p class="label">Proof</p>
-          <h2 id="work-title">Delivered work you can check yourself</h2>
-          <p>We would rather show you working software than quote a testimonial you cannot verify. Each link below opens the real system, today.</p>
+          <p class="label">Work</p>
+          <h2 id="work-title">What we have built</h2>
+          <p>Three systems, with screenshots of the real screens. Two are client projects, named with the clients' permission. One is our own pilot. Client back-office screenshots use demo data.</p>
         </div>
 
         <div class="cases">
           <article class="case" aria-labelledby="case-tm">
+            <div class="case-img"><img src="assets/work/tm-stone/site-desktop.webp" width="1200" height="750" loading="lazy" decoding="async" alt="TM Stone Solutions website on a laptop"></div>
             <span class="tag">Client project &middot; private preview</span>
             <h3 id="case-tm">TM Stone Solutions (PTY) LTD</h3>
-            <p class="what">Wetcast paving manufacturer and installer, Maseru</p>
+            <p class="what">Paving manufacturer and installer, Maseru</p>
             <ul>
-              <li>Company website showing the company's own projects.</li>
-              <li>Instant quote calculator that prices a job from the company's own price list.</li>
-              <li>Owner back-office for quotes, jobs, sales, reports and staff records, built offline-first for a phone.</li>
+              <li>Website with a calculator that prices a paving job from the company's published price list, then sends it on WhatsApp.</li>
+              <li>A back-office on the owner's phone: quotes, costing, jobs, crews, stock, invoices and a monthly report.</li>
+              <li>13 automated test suites.</li>
             </ul>
-            <p class="status">A client project in private preview, going live on the client's own domain. The back-office holds the client's data, so it is shown on request rather than published. Named with the client's permission.</p>
-            <a class="open" href="https://jakote.github.io/tm-stone-preview/" rel="noopener"><span>Open the preview and try the calculator</span>&nbsp;&rarr;</a>
+            <a class="open" href="work/tm-stone/"><span>Read the case study</span>&nbsp;&rarr;</a>
+            <a class="open open-2" href="https://jakote.github.io/tm-stone-preview/" rel="noopener"><span>Try the calculator: jakote.github.io/tm-stone-preview</span>&nbsp;&rarr;</a>
           </article>
 
           <article class="case" aria-labelledby="case-phila">
+            <div class="case-img"><img src="assets/work/philalink/admin-dispatch-desktop.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Philalink office screen: bookings with a mechanic assigned to each"></div>
             <span class="tag">Client project &middot; delivered</span>
             <h3 id="case-phila">Philalink</h3>
             <p class="what">Mobile mechanic booking platform</p>
             <ul>
-              <li>Customers choose their vehicle and services and see the price before they book.</li>
-              <li>Separate signed-in areas for customers, mechanics and administrators.</li>
-              <li>Location pages so people searching in their own city find the service.</li>
+              <li>Customers book a mechanic to their door and see the total before they confirm.</li>
+              <li>Bookings go to the nearest free mechanic; the customer follows them on a live map.</li>
+              <li>Delivered and running on the client's own domain.</li>
             </ul>
-            <p class="status">Delivered and deployed on the client's own domain. Shown on request. Named with the client's permission.</p>
+            <a class="open" href="work/philalink/"><span>Read the case study</span>&nbsp;&rarr;</a>
           </article>
 
           <article class="case" aria-labelledby="case-plat">
+            <div class="case-img"><img src="assets/work/mend-platforms/matsema-pool.webp" width="600" height="1298" loading="lazy" decoding="async" alt="Matsema on a phone: a supply pool showing confirmed, pledged and still-short amounts"></div>
             <span class="tag pilot">MEND product &middot; pilot</span>
             <h3 id="case-plat">Mafisa, Pitso and Matsema</h3>
-            <p class="what">Three community platforms on one shared system</p>
+            <p class="what">Three community apps on one shared system</p>
             <ul>
-              <li><strong>Mafisa:</strong> lend equipment you are not using, such as a bakkie, tractor or mixer, with proof of ownership checked before it is listed.</li>
-              <li><strong>Pitso:</strong> find a plumber, electrician or bookkeeper for one job and rate them afterwards; certificates are checked before they show as verified.</li>
-              <li><strong>Matsema:</strong> small producers pool their supply so together they can meet an order none could fill alone.</li>
-              <li>Sesotho and English. Installable on a phone and built to keep working without a connection.</li>
-              <li>Records agreements between people; it never holds or moves money.</li>
+              <li>Lend equipment, find a trade for one job, pool supply for a large order.</li>
+              <li>Sesotho and English. Built to keep working without a connection.</li>
+              <li>Records agreements between people; never holds or moves money.</li>
             </ul>
-            <p class="status pilot">Pilots running on sample data. No users yet.</p>
-            <a class="open" href="https://platforms.mendgroup.co.za/" rel="noopener"><span>platforms.mendgroup.co.za</span>&nbsp;&rarr;</a>
+            <p class="status pilot">Pilot on sample data. No users yet.</p>
+            <a class="open" href="work/mend-platforms/"><span>Read the case study</span>&nbsp;&rarr;</a>
+            <a class="open open-2" href="https://platforms.mendgroup.co.za/" rel="noopener"><span>Open the pilots: platforms.mendgroup.co.za</span>&nbsp;&rarr;</a>
           </article>
+          <!-- TWKB slot (R2se, Chef on Call): add a card and /work/twkb/ only when
+               clients/twkb/HANDOVER.md lists live URLs AND TWKB has agreed in writing to be
+               named. Copy rules: clients/twkb/PORTFOLIO-COPY.md (never "launched" or "live"
+               before it is true). -->
         </div>
 
         <div class="more">
@@ -289,7 +295,7 @@
         <div>
           <p class="label">Contact</p>
           <h2 id="contact-title" class="h2">Get in touch</h2>
-          <p>Tell us about your project and we'll tell you honestly whether we're the right fit.</p>
+          <p>Tell us what you need built. The person who reads it is the person who would build it.</p>
           <ul class="contact-list">
             <li><b>Email</b><a href="mailto:info@mendgroup.co.za">info@mendgroup.co.za</a></li>
             <li><b>Phone</b><a href="tel:+27832092120">+27 83 209 2120</a></li>
