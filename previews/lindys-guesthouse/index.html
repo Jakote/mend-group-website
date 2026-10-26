@@ -26,7 +26,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,248,243,.94);backdrop-
 .logo-t{font-family:'Fraunces',serif;font-weight:600;font-size:15px}
 .ncta{background:var(--ac);color:#fff;font-weight:700;font-size:13px;padding:9px 16px;border-radius:9px;text-decoration:none}
 .ncta:hover{background:var(--acd)}
-.hero{position:relative;min-height:72vh;display:grid;place-items:center;text-align:center;color:#fff;background:linear-gradient(rgba(20,24,20,.45),rgba(20,24,20,.6)),url('https://www.visitlesotho.org.ls/wp-content/uploads/2025/06/Lindy-Guest-House-4-1024x1024.jpg') center/cover}
+.hero{position:relative;min-height:72vh;display:grid;place-items:center;text-align:center;color:#fff;background:linear-gradient(160deg,var(--acd),var(--ac))}
 .hero-in{position:relative;z-index:2;max-width:680px;padding:80px 20px}
 .hero-kick{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:7px 16px;margin-bottom:22px}
 .hero h1{font-size:clamp(34px,6vw,58px);font-weight:600;line-height:1.1;margin-bottom:14px;text-shadow:0 2px 20px rgba(0,0,0,.35)}
@@ -84,6 +84,8 @@ footer a{color:#fff;font-weight:600;text-decoration:none}
 .wa-f:hover{transform:scale(1.1)}
 @media(max-width:860px){.about-grid,.book-grid,.direct{grid-template-columns:1fr}.rooms,.gal{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.rooms,.gal{grid-template-columns:1fr}.gal{grid-auto-rows:200px}}
+.ph-cap{position:absolute;left:0;right:0;bottom:16px;z-index:2;font-size:12px;color:#fff;letter-spacing:.02em;padding:0 16px}
+.gph-ph{display:grid;place-items:center;background:var(--cream2);border:1px dashed #cfc8b6;color:var(--ink2);font-size:13px;line-height:1.5;text-align:center;padding:14px}
 </style>
 </head>
 <body>
@@ -104,7 +106,7 @@ footer a{color:#fff;font-weight:600;text-decoration:none}
       <a href="#rooms" class="btn btn-ghost">Rooms &amp; Rates</a>
     </div>
   </div>
-</header>
+<div class="ph-cap">Photo to be supplied by the guesthouse</div></header>
 
 <section>
   <div class="w about-grid">
@@ -134,7 +136,7 @@ footer a{color:#fff;font-weight:600;text-decoration:none}
   </div>
 </section>
 
-<section id="gallery" style="padding-top:0"><div class="w"><div class="kick">Gallery</div><h2 class="tit">See the house</h2><div class="gal" style="margin-top:24px"><div class="gph"><img src="https://www.visitlesotho.org.ls/wp-content/uploads/2025/06/Lindy-Guest-House-1-1024x768.jpg" alt="Lindy&#x27;s Guesthouse" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div><div class="gph"><img src="https://www.visitlesotho.org.ls/wp-content/uploads/2025/06/Lindys-Guesthouse-1-1024x768.jpg" alt="Lindy&#x27;s Guesthouse" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div><div class="gph"><img src="https://www.visitlesotho.org.ls/wp-content/uploads/2025/06/Lindys-Guesthouse-3-1024x768.jpg" alt="Lindy&#x27;s Guesthouse" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div></div></div></section>
+<section id="gallery" style="padding-top:0"><div class="w"><div class="kick">Gallery</div><h2 class="tit">See the house</h2><div class="gal" style="margin-top:24px"><div class="gph gph-ph"><span>Photo to be supplied by the guesthouse</span></div><div class="gph gph-ph"><span>Photo to be supplied by the guesthouse</span></div><div class="gph"><img width="800" height="600" src="/assets/previews/lindys-guesthouse/gallery-3-800.webp" alt="Lindy&#x27;s Guesthouse" loading="lazy" onerror="this.closest('.gph').style.display='none'"></div></div></div></section>
 
 <section>
   <div class="w"><div class="direct">
