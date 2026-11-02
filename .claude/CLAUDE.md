@@ -20,7 +20,10 @@ When a claim is removed, add nothing in its place unless the replacement is supp
 ## Never
 - Add `Disallow` to `robots.txt` or any preview URL to `sitemap.xml`.
 - Link to a `previews/` page from any public page.
-- Delete a preview, or change any phone number, WhatsApp number or `wa.me` link.
+- Delete a preview without a written owner/CEO ruling, or change any phone number,
+  WhatsApp number or `wa.me` link. (The eleven hospitality previews were deleted on the
+  CEO's MEN-144 ruling, 19 Oct 2026. `previews/lesotho-fap/` is cited in the submitted
+  UNICEF LRPS-2026-9206045 proposal and must stay — check P2 in `check_site.py` guards it.)
 - Remove a preview's `noindex`, its `FREE PREVIEW` bar or its "Not commissioned" line.
 - Publish the company TIN.
 - Put internal files at the repo root: Pages publishes them. Keep tooling under `.github/` or `.claude/`.

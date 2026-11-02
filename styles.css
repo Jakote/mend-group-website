@@ -260,7 +260,6 @@ footer nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 20px;
   .hero h1, .facts dd, .facts dd a { color: #000; }
 }
 .h2 { font-size: clamp(25px, 4.4vw, 36px); font-weight: 800; margin-bottom: 12px; }
-.more p.gap { margin-top: 10px; }
 
 /* ---------- Work: card thumbnails ---------- */
 .case-img {
