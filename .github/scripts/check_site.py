@@ -208,11 +208,12 @@ check("U  statement source present", bool(statement))
 # edited, rebuild the PDF (node .github/scripts/build_capability.cjs) and this passes.
 FACTS = ["MEND GROUP (PTY) LTD", "96070", "13 June 2025", "Companies Act 2011",
          "Sekamaneng, Maseru", "P.O. Box 173, Maseru, 100", "info@mendgroup.co.za",
-         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "private preview", "demo data",
+         "+27 83 209 2120", "tmstone.co.ls", "demo data",
          "platforms.mendgroup.co.za", "seven years", "No users yet"]
 for fact in FACTS:
     check(f"U  fact on both page and statement: {fact}",
           fact.lower() in home.lower() and fact.lower() in statement.lower())
+absent("U  no link to the retired TM Stone preview", home + statement, r"tm-stone-preview|private preview")
 absent("U  statement: no published TIN", statement, r"\b\d{9}-\d\b|\bTIN\b", 0)
 absent("U  statement/homepage: no withdrawn costing claim", home + statement,
        r"7[01]\s?%|overhead understated|understates overhead")
