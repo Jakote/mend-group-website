@@ -19,6 +19,7 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+from urllib.parse import urljoin
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000").rstrip("/")
 
@@ -68,7 +69,11 @@ status, robots = fetch("/robots.txt")
 check("robots.txt 200", status == 200, str(status))
 status, sitemap = fetch("/sitemap.xml")
 check("sitemap.xml 200", status == 200, str(status))
-PUBLIC = {"homepage": home, "document-chase": chase}
+status, notfound = fetch("/404.html")
+check("404.html 200", status == 200, str(status))
+status, work_index = fetch("/work/")
+check("work/ index 200", status == 200, str(status))
+PUBLIC = {"homepage": home, "document-chase": chase, "404": notfound, "work index": work_index}
 
 # Homepage and document-chase
 absent("A  no withdrawn price / lead time", chase, r"R5,000|7 to 10 days")
@@ -166,7 +171,8 @@ check("Q  demo count floor", len(DEMOS) >= 1, f"{len(DEMOS)} dirs in demo/")
 # branch name these differently, and this block has to pass on either.
 _, _sitemap = fetch("/sitemap.xml")
 check("Q2 sitemap lists no demos", "/demo/" not in _sitemap)
-for _name, _path in (("homepage", "/"), ("document-chase", "/document-chase/")):
+for _name, _path in (("homepage", "/"), ("document-chase", "/document-chase/"),
+                     ("404", "/404.html"), ("work index", "/work/")):
     _, _text = fetch(_path)
     check(f"Q3 {_name}: no public link to a demo",
           not [h for h in re.findall(r"""href=["']([^"']*)["']""", _text)
@@ -243,9 +249,32 @@ check("V  canonical and og:image set",
 WORK = {"tm-stone": "Named with the client's permission",
         "philalink": "Named with the client's permission",
         "mend-platforms": "No users yet"}
+
+
+def site_nav(page, path):
+    """The main nav's <ul>, hrefs resolved against the page's path, whitespace collapsed."""
+    m = re.search(r'<nav [^>]*id="site-nav"[^>]*>\s*(<ul>.*?</ul>)', page, re.S)
+    if not m:
+        return None
+    ul = re.sub(r'href="([^"]*)"', lambda h: f'href="{urljoin(path, h.group(1))}"', m.group(1))
+    return re.sub(r"\s+", " ", ul)
+
+
+def _nav_items(ul):
+    return re.findall(r"<li>(.*?)</li>", ul or "")
+
+
+# The header is copied into every case study, so a link added to the homepage nav
+# has to be added to each copy too. This is what notices when one is missed.
+HOME_NAV = site_nav(home, "/")
+check("N  homepage has a main nav", HOME_NAV is not None)
 for slug, must in WORK.items():
     status, page = fetch(f"/work/{slug}/")
     check(f"W  /work/{slug}/ 200", status == 200, str(status))
+    nav = site_nav(page, f"/work/{slug}/")
+    check(f"N  {slug}: main nav matches the homepage's", nav == HOME_NAV,
+          f"missing {[i for i in _nav_items(HOME_NAV) if i not in _nav_items(nav)]}, "
+          f"extra {[i for i in _nav_items(nav) if i not in _nav_items(HOME_NAV)]}")
     check(f"W  {slug}: says '{must}'", must in page)
     check(f"W  {slug}: homepage links it", f'href="work/{slug}/"' in home)
     if slug != "mend-platforms":
@@ -255,7 +284,11 @@ for slug, must in WORK.items():
     check(f"W  {slug}: no link to the Machenic marketing site", "velangaye" not in page)
     imgs = re.findall(r"<img [^>]*>", page)
     for tag in imgs:
-        src = re.search(r'src="([^"]+)"', tag).group(1)
+        m_src = re.search(r'src="([^"]+)"', tag)
+        if not m_src:
+            check(f"W  {slug}: <img> has a src", False, tag[:80])
+            continue
+        src = m_src.group(1)
         if "/assets/work/" not in src:
             continue
         s_img, _ = fetch(src)

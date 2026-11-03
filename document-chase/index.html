@@ -256,12 +256,14 @@ tbody tr:hover{background:var(--low)}
   function endFeb(y){ var leap=(y%4===0&&y%100!==0)||y%400===0;
     return new Date(y+"-02-"+(leap?29:28)+"T23:59:59+02:00"); }
   var y = now.getFullYear();
-  var marks = [endFeb(y), new Date(y+"-08-31T23:59:59+02:00"), endFeb(y+1)];
-  var next = marks.filter(function(d){return d>now;})[0] || endFeb(y+1);
-  var days = Math.ceil((next-now)/864e5);
+  // Each deadline carries its own label: reading the month back with getMonth() uses
+  // the visitor's zone, and east of UTC+2 31 August 23:59 SAST is already September.
+  var FEB = "second provisional · end February", AUG = "first provisional · 31 August";
+  var marks = [[endFeb(y), FEB], [new Date(y+"-08-31T23:59:59+02:00"), AUG], [endFeb(y+1), FEB]];
+  var next = marks.filter(function(m){return m[0]>now;})[0] || marks[2];
+  var days = Math.ceil((next[0]-now)/864e5);
   document.getElementById('dl').textContent = days + (days===1 ? " day away" : " days away");
-  document.getElementById('dlname').textContent =
-    next.getMonth()===7 ? "first provisional · 31 August" : "second provisional · end February";
+  document.getElementById('dlname').textContent = next[1];
 })();
 
 // The button demonstrates the one thing the page claims: reminders go out without typing.

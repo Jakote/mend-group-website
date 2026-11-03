@@ -41,10 +41,6 @@ const warnings = [];
       const label = `${vp.name} ${p}`;
       const res = await page.goto(BASE + p, { waitUntil: 'networkidle' });
       if (!res || res.status() !== 200) { failures.push(`${label}: HTTP ${res && res.status()}`); continue; }
-      // Scroll-reveal content starts hidden; show it so the screenshot is the real page.
-      await page.evaluate(() => document.querySelectorAll('.reveal').forEach(e => e.classList.add('visible')));
-      await page.waitForTimeout(900);
-
       const r = await page.evaluate(() => {
         const name = el => (el.getAttribute('aria-label') || el.getAttribute('title') ||
           el.textContent || (el.querySelector('img[alt]') || {}).alt || '').trim();
