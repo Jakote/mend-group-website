@@ -284,7 +284,11 @@ for slug, must in WORK.items():
     check(f"W  {slug}: no link to the Machenic marketing site", "velangaye" not in page)
     imgs = re.findall(r"<img [^>]*>", page)
     for tag in imgs:
-        src = re.search(r'src="([^"]+)"', tag).group(1)
+        m_src = re.search(r'src="([^"]+)"', tag)
+        if not m_src:
+            check(f"W  {slug}: <img> has a src", False, tag[:80])
+            continue
+        src = m_src.group(1)
         if "/assets/work/" not in src:
             continue
         s_img, _ = fetch(src)
