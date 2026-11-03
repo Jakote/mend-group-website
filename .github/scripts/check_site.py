@@ -208,7 +208,7 @@ check("U  statement source present", bool(statement))
 # edited, rebuild the PDF (node .github/scripts/build_capability.cjs) and this passes.
 FACTS = ["MEND GROUP (PTY) LTD", "96070", "13 June 2025", "Companies Act 2011",
          "Sekamaneng, Maseru", "P.O. Box 173, Maseru, 100", "info@mendgroup.co.za",
-         "+27 83 209 2120", "jakote.github.io/tm-stone-preview", "private preview", "demo data",
+         "+27 83 209 2120", "tmstone.co.ls", "website live", "demo data",
          "platforms.mendgroup.co.za", "seven years", "No users yet"]
 for fact in FACTS:
     check(f"U  fact on both page and statement: {fact}",
