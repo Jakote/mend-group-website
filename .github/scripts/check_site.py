@@ -69,7 +69,11 @@ status, robots = fetch("/robots.txt")
 check("robots.txt 200", status == 200, str(status))
 status, sitemap = fetch("/sitemap.xml")
 check("sitemap.xml 200", status == 200, str(status))
-PUBLIC = {"homepage": home, "document-chase": chase}
+status, notfound = fetch("/404.html")
+check("404.html 200", status == 200, str(status))
+status, work_index = fetch("/work/")
+check("work/ index 200", status == 200, str(status))
+PUBLIC = {"homepage": home, "document-chase": chase, "404": notfound, "work index": work_index}
 
 # Homepage and document-chase
 absent("A  no withdrawn price / lead time", chase, r"R5,000|7 to 10 days")
@@ -167,7 +171,8 @@ check("Q  demo count floor", len(DEMOS) >= 1, f"{len(DEMOS)} dirs in demo/")
 # branch name these differently, and this block has to pass on either.
 _, _sitemap = fetch("/sitemap.xml")
 check("Q2 sitemap lists no demos", "/demo/" not in _sitemap)
-for _name, _path in (("homepage", "/"), ("document-chase", "/document-chase/")):
+for _name, _path in (("homepage", "/"), ("document-chase", "/document-chase/"),
+                     ("404", "/404.html"), ("work index", "/work/")):
     _, _text = fetch(_path)
     check(f"Q3 {_name}: no public link to a demo",
           not [h for h in re.findall(r"""href=["']([^"']*)["']""", _text)
