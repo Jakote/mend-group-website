@@ -19,6 +19,7 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+from urllib.parse import urljoin
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000").rstrip("/")
 
@@ -243,9 +244,32 @@ check("V  canonical and og:image set",
 WORK = {"tm-stone": "Named with the client's permission",
         "philalink": "Named with the client's permission",
         "mend-platforms": "No users yet"}
+
+
+def site_nav(page, path):
+    """The main nav's <ul>, hrefs resolved against the page's path, whitespace collapsed."""
+    m = re.search(r'<nav [^>]*id="site-nav"[^>]*>\s*(<ul>.*?</ul>)', page, re.S)
+    if not m:
+        return None
+    ul = re.sub(r'href="([^"]*)"', lambda h: f'href="{urljoin(path, h.group(1))}"', m.group(1))
+    return re.sub(r"\s+", " ", ul)
+
+
+def _nav_items(ul):
+    return re.findall(r"<li>(.*?)</li>", ul or "")
+
+
+# The header is copied into every case study, so a link added to the homepage nav
+# has to be added to each copy too. This is what notices when one is missed.
+HOME_NAV = site_nav(home, "/")
+check("N  homepage has a main nav", HOME_NAV is not None)
 for slug, must in WORK.items():
     status, page = fetch(f"/work/{slug}/")
     check(f"W  /work/{slug}/ 200", status == 200, str(status))
+    nav = site_nav(page, f"/work/{slug}/")
+    check(f"N  {slug}: main nav matches the homepage's", nav == HOME_NAV,
+          f"missing {[i for i in _nav_items(HOME_NAV) if i not in _nav_items(nav)]}, "
+          f"extra {[i for i in _nav_items(nav) if i not in _nav_items(HOME_NAV)]}")
     check(f"W  {slug}: says '{must}'", must in page)
     check(f"W  {slug}: homepage links it", f'href="work/{slug}/"' in home)
     if slug != "mend-platforms":
