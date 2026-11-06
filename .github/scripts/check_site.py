@@ -56,7 +56,13 @@ def absent(name, text, pattern, flags=re.I):
     check(name, not hits, f"found {len(hits)}: {sorted(set(hits))[:5]}")
 
 
-check("P  preview count floor", len(PREVIEWS) >= 8, f"{len(PREVIEWS)} dirs in previews/")
+# The floor was >= 8 to catch an accidental mass deletion. MEN-144 made the mass
+# deletion deliberate: all 11 hospitality previews came down on the CEO's ruling, so
+# only lesotho-fap is left and a count floor can no longer guard anything useful.
+# P2 is the guard that still matters — lesotho-fap is cited as technical evidence in
+# the submitted UNICEF LRPS-2026-9206045 proposal, so losing it breaks a live bid.
+check("P  preview count floor", len(PREVIEWS) >= 1, f"{len(PREVIEWS)} dirs in previews/")
+check("P2 lesotho-fap still present", "lesotho-fap" in PREVIEWS, str(PREVIEWS))
 
 status, home = fetch("/")
 check("homepage 200", status == 200, str(status))
@@ -88,7 +94,10 @@ check("G  mission pillars numbered 01..n", pillars == [f"{i:02d}" for i in range
 for page_name, text in PUBLIC.items():
     check(f"F  {page_name}: no public link to a preview",
           not [h for h in re.findall(r"""href=["']([^"']*)["']""", text) if "previews/" in h])
-check("F2 proof sentence present", "ask us to show you one" in home)
+# Inverted by MEN-144. The eleven pages the sentence offered to show are deleted, so
+# the claim has nothing behind it. Guarded the other way round: if the copy comes back
+# without pages behind it, the build fails.
+absent("F2 proof sentence absent", home, r"ask us to show you one")
 check("F3 no link to the site's own repo (internal notes live there)",
       "github.com/Jakote/mend-group-website" not in home)
 
