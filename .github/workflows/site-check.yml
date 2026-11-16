@@ -38,7 +38,11 @@ jobs:
     # "visual" artifact for review) and fails on sideways scroll, images without
     # alt, or unnamed links/buttons. See .github/scripts/visual_check.cjs.
     if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    # Pinned on 16 Nov 2026: `ubuntu-latest` moved to 26.04, where Playwright 1.56.1
+    # cannot install Chromium ("does not support chromium on ubuntu26.04-x64"), so this
+    # job failed at install on every push. Move both together: a Playwright release
+    # that supports the newer image, then this line.
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
