@@ -21,7 +21,9 @@ const OUT = process.argv[3] || 'visual-out';
 const PAGES = [
   '/', '/document-chase/',
   '/work/tm-stone/', '/work/philalink/', '/work/mend-platforms/',
-  '/previews/khali-hotel/', '/previews/mohahlaula-boutique/', '/previews/lesotho-fap/',
+  // khali-hotel and mohahlaula-boutique were sampled here until MEN-144 took all
+  // eleven hospitality previews down. A non-200 is a hard failure in this script.
+  '/previews/lesotho-fap/',
 ];
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900 },
