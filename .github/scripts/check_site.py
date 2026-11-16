@@ -21,6 +21,8 @@ import urllib.request
 from pathlib import Path
 from urllib.parse import urljoin
 
+from robots_rules import robots_problems
+
 BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000").rstrip("/")
 
 # Read the preview list off disk so taking one page down is `git rm -r
@@ -134,8 +136,11 @@ try:
 except ValueError as e:
     check("G3 JSON-LD parses", False, str(e))
 
-# Crawl rules: noindex on previews, robots.txt must not Disallow (see PR #1)
-check("H2 robots.txt has no Disallow", "disallow" not in robots.lower())
+# Crawl rules: noindex on previews, robots.txt must not Disallow (see PR #1). The live
+# file also carries Cloudflare's managed block; robots_rules.py says what that may hold.
+_robots = robots_problems(robots)
+check("H2 robots.txt has no Disallow of MEND's own, and shuts out no search engine",
+      not _robots, "; ".join(_robots[:3]))
 check("H2 sitemap lists no previews", "previews" not in sitemap)
 
 for p in PREVIEWS:
