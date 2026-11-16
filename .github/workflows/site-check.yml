@@ -30,6 +30,8 @@ jobs:
           python3 -m http.server 8000 >/dev/null 2>&1 &
           for i in $(seq 1 20); do curl -sf http://localhost:8000/ >/dev/null && exit 0; sleep 0.5; done
           echo "local server did not start"; exit 1
+      - name: Test the checker's own rules
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
       - name: Run claims and structure checks
         run: python3 .github/scripts/check_site.py http://localhost:8000
 

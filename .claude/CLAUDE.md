@@ -18,7 +18,9 @@ client, statistic or certification that has not been confirmed by the owner in w
 When a claim is removed, add nothing in its place unless the replacement is supplied.
 
 ## Never
-- Add `Disallow` to `robots.txt` or any preview URL to `sitemap.xml`.
+- Add `Disallow` to `robots.txt` or any preview URL to `sitemap.xml`. (The live file also
+  carries Cloudflare's managed block for AI-training crawlers; `.github/scripts/robots_rules.py`
+  says what that block may hold.)
 - Link to a `previews/` page from any public page.
 - Delete a preview without a written owner/CEO ruling, or change any phone number,
   WhatsApp number or `wa.me` link. (The eleven hospitality previews were deleted on the
