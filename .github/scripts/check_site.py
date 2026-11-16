@@ -216,9 +216,11 @@ for fact in FACTS:
 absent("U  statement: no published TIN", statement, r"\b\d{9}-\d\b|\bTIN\b", 0)
 absent("U  statement/homepage: no withdrawn costing claim", home + statement,
        r"7[01]\s?%|overhead understated|understates overhead")
-# MEND's own collected revenue is R5,000; R35,200 was paid to the founder personally in
-# 2021, before MEND existed. No revenue figure is published at all.
-absent("U  no revenue figure", home + statement, r"R\s?40[ ,]?200|R\s?35[ ,]?200|revenue of|in revenue")
+# No revenue figure is published at all. This repo is public, so the pattern names no
+# real amount: it flags any rand figure in the same sentence as revenue or earnings.
+absent("U  no revenue figure", home + statement,
+       r"revenue of|in revenue|(?:revenue|turnover|earned|earnings)[^.<]{0,60}\bR\s?\d"
+       r"|\bR\s?\d[\d ,]*[^.<]{0,60}(?:revenue|turnover|earned|earnings)")
 # Philalink is described, not linked: that domain carries marketing claims MEND cannot back.
 check("U  no link to the Machenic marketing site", "velangaye" not in home and "velangaye" not in statement)
 absent("U  no blanket fixed-price or RLS-everywhere claims", home + statement,
