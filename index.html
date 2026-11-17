@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2026-10-21b">
+  <link rel="stylesheet" href="styles.css?v=2026-11-17a">
   <script>document.documentElement.classList.add('js')</script>
 
   <script type="application/ld+json">
@@ -104,12 +104,27 @@
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="wrap">
-        <p class="label">Registered in the Kingdom of Lesotho &middot; Reg No. 96070</p>
-        <h1 id="hero-title">Software you can open and check.</h1>
-        <p class="lede">MEND GROUP (PTY) LTD is a software company in Maseru. We build web and mobile systems for businesses, and our own platforms in Sesotho and English, built to keep working offline on low-cost phones.</p>
-        <div class="hero-actions">
-          <a class="btn btn-main" href="#work">See the delivered work</a>
-          <a class="btn btn-line" href="capability-statement.pdf">Capability statement (PDF, 1 page)</a>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="label">Registered in the Kingdom of Lesotho &middot; Reg No. 96070</p>
+            <h1 id="hero-title">Software you can open and check.</h1>
+            <p class="lede">MEND GROUP (PTY) LTD is a software company in Maseru. We build web and mobile systems for businesses, and our own platforms in Sesotho and English, built to keep working offline on low-cost phones.</p>
+            <div class="hero-actions">
+              <a class="btn btn-main" href="#work">See the delivered work</a>
+              <a class="btn btn-line" href="capability-statement.pdf">Capability statement (PDF, 1 page)</a>
+            </div>
+          </div>
+          <!-- Two real screens from the work below. Shown from 1200px wide only; they are the same
+               files the work cards below use, so a smaller screen downloads nothing extra. -->
+          <div class="showcase" aria-hidden="true">
+            <div class="frame-browser">
+              <span class="frame-bar"><i></i><i></i><i></i><b>tmstone.co.ls</b></span>
+              <img src="assets/work/tm-stone/site-desktop.webp" width="1200" height="750" loading="lazy" decoding="async" alt="">
+            </div>
+            <div class="frame-phone">
+              <img src="assets/work/mend-platforms/matsema-pool.webp" width="600" height="1298" loading="lazy" decoding="async" alt="">
+            </div>
+          </div>
         </div>
         <dl class="facts" aria-label="Company facts">
           <div><dt>Registration</dt><dd>Reg No. 96070, Kingdom of Lesotho</dd></div>
